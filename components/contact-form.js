@@ -8,8 +8,9 @@ export default function ContactForm() {
   }
 
   return (
+    <div className="w-full flex justify-center pt-16">
     <form onSubmit={handleSubmit} className="flex flex-col gap-3 min-w-80 text-gray-500">
-      
+    <h2 className="text-white text-2xl"> CONTACT US</h2> 
       <label htmlFor="email" className="mb-0">Name</label>
       <input id="name" type="Name" name="name" className="p-2 rounded"/>
       <ValidationError prefix="Name" field="name" errors={state.errors} />
@@ -26,5 +27,6 @@ export default function ContactForm() {
       <ValidationError errors={state.errors} />
       
     </form>
+    </div>
   );
 }
