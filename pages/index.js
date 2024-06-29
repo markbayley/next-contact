@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { Inter } from "next/font/google";
 import ContactForm from "../components/contact-form";
 import Header from "@/components/Header";
