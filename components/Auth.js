@@ -1,19 +1,20 @@
 import { useSession, signIn, signOut } from "next-auth/react";
+import { HiUserCircle } from "react-icons/hi";
 
-export default function Component() {
+export default function Auth() {
   const { data: session } = useSession();
   if (session) {
     return (
-      <div>
+      <div className="flex items-center">
      
         <button
           onClick={() => signOut()}
-          className="bg-red-600 rounded py-0 px-4 hover:bg-red-500 active:scale-95 transition duration-150 font-semibold "
+          className="rounded-full  hover:bg-red-500 active:scale-95 transition duration-150 font-semibold "
         >
-          Sign out
+             <div><HiUserCircle className="h-8 w-8"/></div>
         </button>
     
-       <p className="hidden lg:flex text-xs">{session.user.email} </p>
+       {/* <p className="hidden lg:flex text-xs">{session.user.email} </p> */}
       </div>
     );
   }
