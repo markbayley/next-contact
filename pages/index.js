@@ -18,8 +18,8 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
   const [allProducts, setAllProducts] = useState(products);
   const [searchedProducts, setSearchedProducts] = useState(products);
-  const [searchValue, setSearchValue] = useState('');
-  const [sortOrder, setSortOrder] = useState('')
+  const [searchValue, setSearchValue] = useState("");
+  const [sortOrder, setSortOrder] = useState("");
 
   const handleSort = (order) => {
     const sortedData =
@@ -40,17 +40,13 @@ export default function Home() {
     }
   };
 
-  // console.log("products", products)
-
   return (
     <div className="">
-      <main
-        className={`flex min-h-screen flex-col items-center  pt-16 ${inter.className}`}
-      >
-        <h2 className="text-white text-2xl">SEARCH</h2>
+      <main className={`flex  styleCol pt-8 ${inter.className}`}>
+        {/* <h2 className="text-white text-2xl">SEARCH</h2> */}
 
         <div>
-          <div className="flex flex-col gap-4 md:flex-row w-full items-center justify-between  mt-6">
+          <div className="styleRow mt-4">
             <div className="flex justify-center gap-1 ">
               <input
                 value={searchValue}
@@ -63,14 +59,14 @@ export default function Home() {
                   onClick={() => {
                     setSearchedProducts(allProducts), setSearchValue("");
                   }}
-                  className="bg-blue-600 rounded py-2 px-4 hover:bg-blue-500 active:scale-95 transition duration-150 font-semibold "
+                  className="button "
                 >
                   <HiOutlineReply className="h-5 w-5" />
                 </button>
               ) : (
                 <button
                   onClick={(e) => handleSearch(e.target.value)}
-                  className="bg-blue-600 rounded py-2 px-4 hover:bg-blue-500 active:scale-95 transition duration-150 font-semibold "
+                  className="button "
                 >
                   <HiOutlineSearch className="h-5 w-5" />
                 </button>
@@ -86,33 +82,37 @@ export default function Home() {
                   <HiFilter className="h-6 w-6 " />
                 </button>
               </div> */}
-              { sortOrder === "descending" ?
-              <div>
-                <button
-                  onClick={() => { handleSort("ascending"), setSortOrder('ascending')}}
-                  className="bg-blue-600 rounded py-2 px-4 hover:bg-blue-500 active:scale-95 transition duration-150 font-semibold "
-                >
-                  <HiSortDescending className="h-6 w-6 " />
-                </button>
-              </div>
-              :
-              <div>
-                <button
-                  onClick={() => { handleSort("descending"), setSortOrder('descending')}}
-                  className="bg-blue-600 rounded py-2 px-4 hover:bg-blue-500 active:scale-95 transition duration-150 font-semibold "
-                >
-                  <HiSortAscending className="h-6 w-6 " />
-                </button>
-              </div>
-}
+              {sortOrder === "descending" ? (
+                <div>
+                  <button
+                    onClick={() => {
+                      handleSort("ascending"), setSortOrder("ascending");
+                    }}
+                    className="button "
+                  >
+                    <HiSortDescending className="h-6 w-6 " />
+                  </button>
+                </div>
+              ) : (
+                <div>
+                  <button
+                    onClick={() => {
+                      handleSort("descending"), setSortOrder("descending");
+                    }}
+                    className="button "
+                  >
+                    <HiSortAscending className="h-6 w-6 " />
+                  </button>
+                </div>
+              )}
             </div>
           </div>
 
           <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-4 mt-16">
             {searchedProducts.map((item) => (
               <Link href={`/detail/${item.id}`} key={item.id}>
-                <div className="border relative rounded w-80 h-80 flex justify-center items-center text-white text-lg hover:opacity-90 transition duration-150 ease-out">
-                  <div className=" w-full h-full flex items-center justify-center text-gray-500 text-lg z-50 opacity-0 hover:opacity-100 transition duration-1000 ease-out">
+                <div className="styleCenter border relative rounded w-80 h-80  text-white text-lg hover:opacity-90 transition duration-150 ease-out">
+                  <div className="styleCenter text-gray-500 text-lg z-50 opacity-0 hover:opacity-100 transition duration-1000 ease-out">
                     <HiOutlineEye className="h-16 w-16" />
                   </div>
                   <Image
