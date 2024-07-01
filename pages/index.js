@@ -42,17 +42,17 @@ export default function Home() {
 
   return (
     <div className="">
-      <main className={`flex  styleCol pt-8 ${inter.className}`}>
+      <main className={`flex styleCol ${inter.className}`}>
         {/* <h2 className="text-white text-2xl">SEARCH</h2> */}
 
         <div>
-          <div className="styleRow mt-4">
-            <div className="flex justify-center gap-1 ">
+          <div className="styleRow">
+            <div className="flex justify-center  ">
               <input
                 value={searchValue}
                 onChange={(e) => setSearchValue(e.target.value)}
                 placeholder="Search..."
-                className=" pl-4 py-2 rounded xl:min-w-60 outline-none text-gray-700"
+                className=" pl-4 py-2 rounded w-56  outline-none text-gray-700"
               />
               {searchedProducts.length < allProducts.length ? (
                 <button
@@ -73,7 +73,7 @@ export default function Home() {
               )}
             </div>
 
-            <div className="flex gap-5">
+            <div className="">
               {/* <div>
                 <button
                   onClick={handleSort}
@@ -108,26 +108,26 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-4 mt-16">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3  xl:grid-cols-4 gap-4 pt-8">
             {searchedProducts.map((item) => (
               <Link href={`/detail/${item.id}`} key={item.id}>
-                <div className="styleCenter border relative rounded w-80 h-80  text-white text-lg hover:opacity-90 transition duration-150 ease-out">
+                <div className="styleCenter border relative w-full md:w-72 h-72 shadow-sm text-white text-lg hover:opacity-90 transition duration-150 ease-out">
                   <div className="styleCenter text-gray-500 text-lg z-50 opacity-0 hover:opacity-100 transition duration-1000 ease-out">
-                    <HiOutlineEye className="h-16 w-16" />
+                    <HiOutlineEye className="h-10 w-10 text-white" />
                   </div>
                   <Image
                     src={item.image}
                     alt="product-image"
                     fill
                     style={{ objectFit: "cover" }}
-                    className="hover:opacity-75"
+                    className="hover:opacity-75 rounded-md shadow-md"
                   />
 
                   <div className="text-gray-800  absolute bottom-1 left-2 text-md">
                     {item.title}
                   </div>
 
-                  <div className="text-gray-800 absolute bottom-1 right-2 text-md">
+                  <div className="text-gray-800 absolute bottom-1 right-2">
                     ${item.price}
                   </div>
                 </div>

@@ -4,7 +4,7 @@
 
 @layer components {
   .button {
-    @apply bg-amber-500 px-2 w-fit lg:px-4 py-2 border rounded cursor-pointer hover:opacity-90 active:scale-95 transition transform duration-100 ease-out;
+    @apply bg-amber-500 px-2 w-fit lg:px-4 py-2 border rounded-md cursor-pointer hover:opacity-90 active:scale-95 transition transform duration-100 ease-out;
   }
   .styleRow {
     @apply flex w-full flex-row items-center justify-between gap-4

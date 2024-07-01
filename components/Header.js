@@ -8,7 +8,7 @@ function Header() {
   const { cart } = useCart();
 
   return (
-    <div className="sticky top-0 grid grid-cols-3 items-center p-3 z-50">
+    <div className="sticky top-0 grid grid-cols-3 items-center p-3 z-50 bg-gray-100">
       <div className="flex gap-6">
         <div className="md:pl-3"> Logo</div>
         <ul className="flex gap-6">

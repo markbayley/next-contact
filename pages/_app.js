@@ -12,7 +12,9 @@ export default function App({
     <SessionProvider session={session}>
         <CartProvider>
         <Header />
+        <div className="min-h-screen py-8 px-2">
       <Component {...pageProps} />
+      </div>
       <Footer />
       </CartProvider>
     </SessionProvider>

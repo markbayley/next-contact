@@ -19,13 +19,14 @@ const Cart = () => {
   }
 
   return (
-    <div className="min-h-screen justify-center mt-8 lg:mx-16 mx-3">
-      <h2 className="text-2xl mb-4">Cart</h2>
-      <div className="flex flex-col gap-6">
+    <div className="flex justify-center w-full">
+      <div className="max-w-[850px]">
+      <h2 className="text-2xl pb-4">Cart</h2>
+      <div className="flex flex-col gap-4">
         {cart.map((product) => (
           <div
             key={product.id}
-            className="w-full border-2 border-gray-500 grid md:grid-cols-3"
+            className="w-full md:border-2 bg-gray-100 shadow-sm rounded-md grid md:grid-cols-3"
           >
             <div className="relative w-full md:w-40 h-40">
               <Image
@@ -33,12 +34,13 @@ const Cart = () => {
                 alt={product.title}
                 fill
                 style={{ objectFit: "cover" }}
+                className="rounded-l-md"
               />
             </div>
             <div className="flex flex-col justify-between p-2">
               <h2 className="font-semibold">{product.title}</h2>
               <h3>{product.description.substring(0, 70)}...</h3>
-              <h5 className="mt-2 md:mb-2 text-md">${product.price}</h5>
+              <h5 className="pt-2 md:pb-2 text-md">${product.price}</h5>
             </div>
             <div className="styleCol justify-between p-2">
               <div className="styleRow">
@@ -63,7 +65,7 @@ const Cart = () => {
                 </div>
 
                 <button onClick={() => removeFromCart(product.id)} className="">
-                  <HiOutlineX className="h-6 w-6 p-1 button bg-gray-300" />
+                  <HiOutlineX className="h-6 w-6 p-1 button rounded shadow-sm bg-gray-200" />
                 </button>
               </div>
 
@@ -77,7 +79,7 @@ const Cart = () => {
           </div>
         ))}
       </div>
-      <div className="styleRow mt-4">
+      <div className="styleRow pt-4">
         <Link href="/">
           <div className="button">Continue Shopping</div>
         </Link>
@@ -85,6 +87,7 @@ const Cart = () => {
           <div className="button">BUY ALL</div>
         </Link>
       </div>
+    </div>
     </div>
   );
 };
