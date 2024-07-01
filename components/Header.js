@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { HiOutlineShoppingCart, HiUserCircle } from "react-icons/hi";
 import Auth from "./Auth";
 import { useCart } from "../pages/context/CartContext";
 
+
 function Header() {
   const { cart } = useCart();
+
 
   return (
     <div className="sticky top-0 grid grid-cols-3 items-center p-3 z-50 bg-gray-100">
@@ -38,11 +40,11 @@ function Header() {
 
         <div>
           {" "}
-          <Link href="/profile">
-            <Auth />
-          </Link>
+          <Auth />
         </div>
       </div>
+
+      
     </div>
   );
 }
