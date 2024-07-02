@@ -9,7 +9,6 @@ export const authOptions = {
 
       secret: process.env.SECRET
     }),
-    // ...add more providers here
   ],
 }
 
