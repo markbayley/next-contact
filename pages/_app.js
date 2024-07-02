@@ -2,7 +2,7 @@ import { SessionProvider } from "next-auth/react"
 import "@/styles/globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { CartProvider } from './/context/CartContext';
+import { CartProvider } from '../context/CartContext';
 
 export default function App({
   Component,
@@ -12,7 +12,7 @@ export default function App({
     <SessionProvider session={session}>
         <CartProvider>
         <Header />
-        <div className="min-h-screen py-2 px-2">
+        <div className="min-h-screen pt-2">
       <Component {...pageProps} />
       </div>
       <Footer />

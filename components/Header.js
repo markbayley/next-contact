@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { HiOutlineHeart, HiOutlineShoppingCart } from "react-icons/hi";
 import Auth from "./Auth";
-import { useCart } from "../pages/context/CartContext";
+import { useCart } from "../context/CartContext";
 
 function Header() {
   const { cart, favorites } = useCart();

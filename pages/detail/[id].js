@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { products } from "./../products.js";
+import { products } from "../../data/products.js";
 import React, { useEffect, useState } from "react";
-import { useCart } from "./../context/CartContext";
+import { useCart } from "../../context/CartContext.js";
 import {
   HiArrowRight,
   HiClipboardCheck,
@@ -89,14 +89,14 @@ function Detail() {
         <div className="flex flex-col">
           {favoritedProducts.length > 0 ? (
             <div>
-              <div className="flex items-center px-2 font-semibold text-gray-500 text-lg">
+              <div className="flex items-center p-2 font-semibold text-gray-500 text-lg">
                 <HiHeart />
                 <h4>Favorites</h4>
               </div>
               {favoritedProducts.map((item) => (
                 <div
                   key={item.id}
-                  className="flex flex-col-reverse w-full py-4 px-2 justify-center"
+                  className="flex flex-col-reverse w-full pb-8 px-2 justify-center"
                 >
                   <Link href={`/detail/${item.id}`}>
                     <div className="relative h-52 w-52 hover:opacity-95">
@@ -129,14 +129,14 @@ function Detail() {
             </div>
           ) : (
             <div>
-              <div className="flex items-center px-2 font-semibold text-gray-500 text-lg">
+              <div className="flex items-center p-2 font-semibold text-gray-500 text-lg">
                 <HiClipboardCheck />
                 <h4>Similar Items</h4>
               </div>
               {similarProducts.map((item) => (
                 <div
                   key={item.id}
-                  className="flex w-full py-4 px-2 justify-center"
+                  className="flex w-full pb-8 px-2 justify-center"
                 >
                   <Link href={`/detail/${item.id}`}>
                     <div className="relative h-52 w-52 hover:opacity-95">
@@ -193,7 +193,7 @@ function Detail() {
         </div> */}
 
         {/* Mid-heading */}
-        <div className="styleRow p-2 xl:p-4">
+        {/* <div className="styleRow p-2 xl:p-4">
           <h2 className="text-xl text-gray-500 ">
             <Link href="/" className="hover:text-gray-400">Shop </Link> / <strong>Detail</strong>
           </h2>
@@ -205,12 +205,12 @@ function Detail() {
               </div>
             </Link>
           </h2>
-        </div>
+        </div> */}
 
         {/* Mid-Main */}
-        <div className="md:border-2  md:px-2 md:pt-6 lg:p-4">
+        <div className="md:px-2 md:pt-6 lg:p-4">
           <div className="grid md:grid-cols-2 gap-4 animate-fade">
-            <div className="relative w-full h-80 lg:w-96 lg:h-96 xl:w-full xl:h-auto aspect-square">
+            <div className="relative w-full lg:w-96 lg:h-96 xl:w-full xl:h-auto aspect-square">
               <Image
                 src={product.image}
                 alt="detail-image"
@@ -239,7 +239,7 @@ function Detail() {
                     )}
                   </button>
                 </div>
-                <p className="pt-4 text-auto 2xl:text-2xl">
+                <p className="py-2 text-auto 2xl:text-2xl">
                   {product.description}
                 </p>
               </div>
@@ -258,8 +258,9 @@ function Detail() {
           </div>
         </div>
         {/* Mid-bottom */}
-        <div className="w-full bg-gray-100 shadow-sm rounded-md lg:p-4 animate-fade">
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-2 lg:gap-6">
+        <div className="w-full bg-white shadow-sm rounded-md lg:p-4 lg:pt-0 flex justify-evenly lg:justify-between animate-fade">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-2 py-4 xl:py-0 lg:gap-16 xl:gap-6">
+
             <div className="relative w-36 aspect-square hover:opacity-95 cursor-pointer">
               <Image
                 src={product.image}
@@ -312,14 +313,14 @@ function Detail() {
       <div className="hidden flex-none xl:flex bg-gray-100 shadow rounded-md min-w-[200px]">
         {cart.length > 0 ? (
           <div className="flex flex-col">
-            <div className="flex items-center px-2 font-semibold text-gray-500 text-lg">
+            <div className="flex items-center p-2 font-semibold text-gray-500 text-lg">
               <HiShoppingCart />
               <h4>Cart</h4>
             </div>
             {cart.map((item) => (
               <div
                 key={item.id}
-                className="grid gap-2 w-full px-2 py-4 justify-center"
+                className="grid gap-2 w-full px-2 pb-8 justify-center"
               >
                 <Link href={`/cart`}>
                   <div className="relative h-52 w-52 hover:opacity-95">

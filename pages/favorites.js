@@ -1,5 +1,5 @@
 import React from "react";
-import { useCart } from "./context/CartContext";
+import { useCart } from "../context/CartContext";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -11,7 +11,7 @@ import {
   HiOutlineX,
 } from "react-icons/hi";
 import { useRouter } from "next/router";
-import { products } from "./products.js";
+import { products } from "../data/products.js/index.js";
 
 const Favorites = () => {
   const { removeFromCart, favorites } = useCart();

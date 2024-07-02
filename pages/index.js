@@ -10,9 +10,9 @@ import {
   HiSortAscending,
   HiSortDescending,
 } from "react-icons/hi";
-import { products } from "./products.js";
+import { products } from "../data/products.js";
 import Image from "next/image";
-import { useCart } from "./context/CartContext";
+import { useCart } from "../context/CartContext.js";
 
 const inter = Inter({ subsets: ["latin"] });
 
