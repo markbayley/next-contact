@@ -11,7 +11,7 @@ import {
   HiOutlineX,
 } from "react-icons/hi";
 import { useRouter } from "next/router";
-import { products } from "../data/products.js/index.js";
+import { products } from "../data/products.js";
 
 const Favorites = () => {
   const { removeFromCart, favorites } = useCart();
