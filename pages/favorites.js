@@ -2,18 +2,30 @@ import React from "react";
 import { useCart } from "./context/CartContext";
 import Image from "next/image";
 import Link from "next/link";
-import { HiArrowLeft, HiArrowRight, HiOutlineMinus, HiOutlinePlus, HiOutlineX } from "react-icons/hi";
+import {
+  HiArrowLeft,
+  HiArrowRight,
+  HiHeart,
+  HiOutlineMinus,
+  HiOutlinePlus,
+  HiOutlineX,
+} from "react-icons/hi";
 import { useRouter } from "next/router";
+import { products } from "./products.js";
 
-const Cart = () => {
-  const { cart, removeFromCart, updateQuantity } = useCart();
+const Favorites = () => {
+  const { removeFromCart, favorites } = useCart();
 
-  const router = useRouter()
+  const favoritedProducts = products.filter((item) =>
+    favorites.includes(item.id)
+  );
 
-  if (cart.length === 0) {
+  const router = useRouter();
+
+  if (favorites.length === 0) {
     return (
       <div className="flex flex-col w-full min-h-screen items-center justify-center">
-        <p> Your cart is empty</p>
+        <p> No favorites selected</p>
         <Link href="/">
           <div className="button mt-4">Continue Shopping</div>
         </Link>
@@ -25,18 +37,32 @@ const Cart = () => {
     <div className="flex justify-center w-full">
       <div className="max-w-[850px] animate-fade">
         <div className="styleRow max-w-[850px] mb-2">
-          <h2 className="text-xl text-gray-500 "><Link href="/" className="hover:text-gray-400">Shop </Link>/ <span className="cursor-pointer hover:text-gray-400" onClick={() => router.back()}>Detail</span> / <strong>Cart</strong></h2>
+          <h2 className="text-xl text-gray-500 ">
+            <Link href="/" className="hover:text-gray-400">
+              Shop{" "}
+            </Link>
+            /{" "}
+            <span
+              className="cursor-pointer hover:text-gray-400"
+              onClick={() => router.back()}
+            >
+              Detail
+            </span>{" "}
+            / <strong>Favorites</strong>
+          </h2>
           <h2 className="flex gap-2">
-          {/* <Link href="/">
+            {/* <Link href="/">
             <div className="flex items-center button text-white ">View Shop</div>
           </Link> */}
-          <Link href="/cart">
-            <div className="flex items-center button text-white">Checkout <HiArrowRight className="h-4 w-4 ml-1"/></div>
-          </Link>
+            <Link href="/cart">
+              <div className="flex items-center button text-white">
+                Checkout <HiArrowRight className="h-4 w-4 ml-1" />
+              </div>
+            </Link>
           </h2>
         </div>
         <div className="flex flex-col gap-4">
-          {cart.map((product) => (
+          {favoritedProducts.map((product) => (
             <div
               key={product.id}
               className="w-full md:border-2 bg-gray-100 shadow-sm rounded-md grid md:grid-cols-3 p-1"
@@ -64,31 +90,13 @@ const Cart = () => {
                 <h5 className="pt-2 md:pb-2 text-md">${product.price}</h5>
               </div>
               <div className="styleCol justify-between p-2">
-                <div className="styleRow">
-                  <div className="flex items-center space-x-2 ">
-                    <button
-                      onClick={() =>
-                        updateQuantity(product.id, product.quantity - 1)
-                      }
-                      className=""
-                    >
-                      <HiOutlineMinus className="h-6 w-6 p-1 button" />
-                    </button>
-                    <span>{product.quantity}</span>
-                    <button
-                      onClick={() =>
-                        updateQuantity(product.id, product.quantity + 1)
-                      }
-                      className=" "
-                    >
-                      <HiOutlinePlus className="h-6 w-6 p-1 button" />
-                    </button>
-                  </div>
-                </div>
+              <div className="styleRow "> <h2>
+                  
+                  </h2><HiHeart className=" h-7 w-7 z-50 text-red-500" /></div>
 
                 <div className="styleRow ">
                   <h2>
-                    Total: ${(product.price * product.quantity).toFixed(2)}
+                  
                   </h2>
                   <Link href="/">
                     <div className="button">Buy Now</div>
@@ -103,4 +111,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default Favorites;

@@ -28,7 +28,7 @@ function Header() {
           <span className="absolute -top-2 -right-2 rounded-full bg-red-600 text-[10px] w-4 h-4 text-white flex items-center justify-center border">
             {favorites.length}
           </span>
-          <Link href="/cart">
+          <Link href="/favorites">
             <HiOutlineHeart className="h-6 w-6 text-gray-600" />
           </Link>
         </div>

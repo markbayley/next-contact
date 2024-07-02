@@ -108,7 +108,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 pt-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 pt-8 animate-fade">
             {searchedProducts.map((item) => (
               <div className="shadow-sm bg-gray-100 rounded-md p-1" key={item.id}>
                 <Link href={`/detail/${item.id}`}>
@@ -117,7 +117,7 @@ export default function Home() {
                       <HiOutlineEye className="h-10 w-10 text-white" />
                     </div>
                     <div className="absolute top-2 right-2 z-50">
-                      <button className="hover:bg-gray-300 rounded-full p-2 transition duration-200 ease-out"
+                      <button className="hover:bg-gray-200 rounded-full p-2 transition duration-200 ease-out"
                        onClick={(event) => handleFavoriteClick(event, item.id)}
                        >
                         {favorites.includes(item.id) ? (
@@ -132,7 +132,7 @@ export default function Home() {
                       alt="product-image"
                       fill
                       style={{ objectFit: "cover" }}
-                      className="hover:opacity-75 rounded-t-md"
+                      className="hover:opacity-95 rounded-t-md"
                     />
                   </div>
                 </Link>
