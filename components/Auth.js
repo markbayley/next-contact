@@ -1,6 +1,6 @@
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useState } from "react";
-import { HiOutlineUserCircle, HiUserCircle } from "react-icons/hi";
+import { HiOutlineUserCircle } from "react-icons/hi";
 import { useForm, ValidationError } from "@formspree/react";
 
 export default function Auth() {
@@ -22,7 +22,7 @@ export default function Auth() {
         </button>
 
         {showProfile && (
-          <div className="absolute top-14 right-1 bg-gray-200 rounded-md w-80 shadow-lg p-3 ">
+          <div className="absolute top-14 right-1 bg-gray-200 rounded-md w-80 shadow-lg p-3 border-2 border-gray-300">
             <form
               onSubmit={handleSubmit}
               className="flex flex-col gap-3  text-gray-500 "
@@ -50,7 +50,7 @@ export default function Auth() {
                 errors={state.errors}
               />
 
-              <label htmlFor="message" className="mt-4">
+              <label htmlFor="message" className="">
                 Upload Photo
               </label>
               <textarea
@@ -64,7 +64,6 @@ export default function Auth() {
                 field="message"
                 errors={state.errors}
               />
-
               <button
                 type="submit"
                 disabled={state.submitting}
@@ -81,7 +80,6 @@ export default function Auth() {
   }
   return (
     <>
-      {/* Not signed in <br /> */}
       <button onClick={() => signIn()} className="button">
         Login
       </button>

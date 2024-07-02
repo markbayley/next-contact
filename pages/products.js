@@ -17,7 +17,7 @@ export const products = [
       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.",
     image: "/product2.jpg",
     quantity: 4,
-     category: "Fitness",
+     category: "Skin Care",
   },
   {
     id: 3,
@@ -27,7 +27,7 @@ export const products = [
       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.",
     image: "/product3.jpg",
     quantity: 12,
-    category: "Skincare",
+    category: "Skin Care",
   },
   {
     id: 4,
@@ -37,6 +37,46 @@ export const products = [
       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout...",
     image: "/product4.jpg",
     quantity: 18,
-    category: "Lifestyle",
+    category: "Health & Beauty",
+  },
+  {
+    id: 5,
+    price: 27.95,
+    title: "Product 5",
+    description:
+      "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.",
+    image: "/product5.jpg",
+    quantity: 3,
+    category: "Gifts",
+  },
+  {
+    id: 6,
+    price: 16.95,
+    title: "Product 6",
+    description:
+      "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.",
+    image: "/product6.jpg",
+    quantity: 6,
+     category: "Home Decor",
+  },
+  {
+    id: 7,
+    price: 32.95,
+    title: "Product 7",
+    description:
+      "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.",
+    image: "/product7.jpg",
+    quantity: 1,
+    category: "Gifts",
+  },
+  {
+    id: 8,
+    price: 17.95,
+    title: "Product 8",
+    description:
+      "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout...",
+    image: "/product8.jpg",
+    quantity: 2,
+    category: "Home Decor",
   },
 ];

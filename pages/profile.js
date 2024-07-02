@@ -1,4 +1,3 @@
-import Auth from '@/components/Auth'
 import React from 'react'
 
 function profile() {

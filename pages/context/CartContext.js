@@ -8,6 +8,7 @@ export const useCart = () => {
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
+  const [favorites, setFavorites] = useState([]);
 
   const addToCart = (product) => {
     setCart((prevCart) => {
@@ -34,9 +35,21 @@ export const CartProvider = ({ children }) => {
     );
   };
 
+  const updateFavorite = (productId, isFavorited) => {
+    setFavorites((prevFavorites) => {
+      if (isFavorited) {
+        return [...prevFavorites, productId];
+      } else {
+        return prevFavorites.filter(id => id !== productId);
+      }
+    });
+  };
+
+  
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateQuantity }}>
+    <CartContext.Provider value={{ cart, favorites, addToCart, removeFromCart, updateQuantity, updateFavorite }}>
       {children}
     </CartContext.Provider>
   );
 };
+
