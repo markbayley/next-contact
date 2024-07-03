@@ -9,7 +9,7 @@ export const useCart = () => {
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [favorites, setFavorites] = useState([]);
-  const [option, setOption] = useState("Option A");
+  const [option, setOption] = useState("");
 
   const addToCart = (product) => {
     setCart((prevCart) => {
@@ -49,12 +49,12 @@ export const CartProvider = ({ children }) => {
     );
   };
 
-  const updateFavorite = (productId, isFavorited) => {
+  const updateFavorite = (product, isFavorited) => {
     setFavorites((prevFavorites) => {
       if (isFavorited) {
-        return [...prevFavorites, productId];
+        return [...prevFavorites, product];
       } else {
-        return prevFavorites.filter((id) => id !== productId);
+        return prevFavorites.filter((item) => item.id !== product.id);
       }
     });
   };

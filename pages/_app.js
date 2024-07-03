@@ -12,7 +12,7 @@ export default function App({
     <SessionProvider session={session}>
         <CartProvider>
         <Header />
-        <div className="min-h-screen pt-2">
+        <div className="min-h-screen">
       <Component {...pageProps} />
       </div>
       <Footer />

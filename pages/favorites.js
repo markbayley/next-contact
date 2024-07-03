@@ -16,9 +16,9 @@ import { products } from "../data/products.js";
 const Favorites = () => {
   const { removeFromFavorites, favorites } = useCart();
 
-  const favoritedProducts = products.filter((item) =>
-    favorites.includes(item.id)
-  );
+  // const favoritedProducts = products.filter((item) =>
+  //   favorites.includes(item.id)
+  // );
 
   const router = useRouter();
 
@@ -34,7 +34,7 @@ const Favorites = () => {
   }
 
   return (
-    <div className="flex justify-center w-full">
+    <div className="flex justify-center w-full pt-2">
       <div className="max-w-[850px] animate-fade">
         <div className="styleRow max-w-[850px] mb-2">
           <h2 className="text-xl text-gray-500 ">
@@ -62,7 +62,7 @@ const Favorites = () => {
           </h2>
         </div>
         <div className="flex flex-col gap-4">
-          {favoritedProducts.map((product) => (
+          {favorites.map((product) => (
             <div
               key={product.id}
               className="w-full md:border-2 bg-gray-100 shadow-sm rounded-md grid md:grid-cols-3 p-1"

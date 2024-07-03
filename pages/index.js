@@ -51,7 +51,7 @@ export default function Home() {
   };
 
   return (
-    <div className="">
+    <div className="pt-4">
       <main className={`flex styleCol ${inter.className}`}>
         <div>
           <div className="styleRow">
@@ -127,6 +127,7 @@ export default function Home() {
                         )}
                       </button>
                     </div>
+                    {/* <div className="relative"> */}
                     <Image
                       src={item.image}
                       alt="product-image"
@@ -134,6 +135,7 @@ export default function Home() {
                       style={{ objectFit: "cover" }}
                       className="hover:opacity-95 rounded-t-md"
                     />
+                    {/* </div> */}
                   </div>
                 </Link>
                 <div className="p-2">

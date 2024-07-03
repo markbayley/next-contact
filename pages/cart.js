@@ -24,14 +24,11 @@ const Cart = () => {
   console.log("cart", cart)
 
   return (
-    <div className="flex justify-center w-full">
+    <div className="flex justify-center w-full pt-2">
       <div className="max-w-[850px] animate-fade">
         <div className="styleRow max-w-[850px] mb-2">
           <h2 className="text-xl text-gray-500 "><Link href="/" className="hover:text-gray-400">Shop </Link>/ <span className="cursor-pointer hover:text-gray-400" onClick={() => router.back()}>Detail</span> / <strong>Cart</strong></h2>
           <h2 className="flex gap-2">
-          {/* <Link href="/">
-            <div className="flex items-center button text-white ">View Shop</div>
-          </Link> */}
           <Link href="/cart">
             <div className="flex items-center button text-white">Checkout <HiArrowRight className="h-4 w-4 ml-1"/></div>
           </Link>
@@ -57,7 +54,7 @@ const Cart = () => {
                   onClick={() => removeFromCart(product.id)}
                   className="m-1"
                 >
-                  <HiOutlineX className="h-6 w-6 p-1 button rounded shadow-sm bg-gray-100" />
+                  <HiOutlineX className="h-6 w-6 p-1 button rounded shadow-sm bg-gray-200" />
                 </button>
               </div>
               <div className="flex flex-col justify-between p-2  ">
@@ -74,7 +71,7 @@ const Cart = () => {
                       }
                       className=""
                     >
-                      <HiOutlineMinus className="h-6 w-6 p-1 button" />
+                      <HiOutlineMinus className="h-6 w-6 p-1 button bg-indigo-500 text-white" />
                     </button>
                     <span>{product.quantity}</span>
                     <button
@@ -83,7 +80,7 @@ const Cart = () => {
                       }
                       className=" "
                     >
-                      <HiOutlinePlus className="h-6 w-6 p-1 button" />
+                      <HiOutlinePlus className="h-6 w-6 p-1 button bg-indigo-500 text-white" />
                     </button>
                   </div>
                 </div>
