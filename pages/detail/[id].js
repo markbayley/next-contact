@@ -16,15 +16,8 @@ import {
 function Detail() {
   const router = useRouter();
   const { id } = router.query;
-  const { cart, favorites, addToCart, updateFavorite } = useCart();
+  const { cart, favorites, option, addToCart, updateFavorite, updateOption} = useCart();
   const product = products.find((item) => item.id === parseInt(id));
-
-  const similarProducts = products.filter(
-    (item) => item?.category === product?.category && item.id !== product.id
-  );
-  const favoritedProducts = products.filter((item) =>
-    favorites.includes(item.id)
-  );
 
   const isFavorited = favorites.includes(parseInt(id));
   const [showCart, setShowCart] = useState(false);
@@ -45,152 +38,17 @@ function Detail() {
     updateFavorite(product.id, !isFavorited);
   };
 
-  // useEffect(() => {
-  //   if (showCart) {
-  //     const timer = setTimeout(() => {
-  //       setShowCart(false);
-  //     }, 1000);
-
-  //     return () => clearTimeout(timer);
-  //   }
-  // }, [showCart]);
-
   console.log("favorites", favorites);
   console.log("isFavorited", isFavorited);
 
-  // const SideItem = (sideProducts) => {
-  //   {sideProducts.map((item) => (
-  //     <div
-  //       key={item.id}
-  //       className="grid  gap-2 w-full px-2 py-4 justify-center"
-  //     >
-  //       <Link href={`/cart`}>
-  //         <div className="relative h-52 w-52 hover:opacity-95">
-  //           <Image
-  //             src={item.image}
-  //             alt="fav-image"
-  //             fill
-  //             style={{ objectFit: "cover" }}
-  //             className="rounded-md"
-  //           />
-  //         </div>
-  //         <div className="absolute text-gray-500 z-50">
-  //           {item.title}
-  //         </div>
-  //       </Link>
-  //     </div>
-  //   ))}
-  // };
+
+  
 
   return (
     <div className="flex">
-      {/* Left */}
-      <div className="hidden flex-none xl:flex bg-gray-100 shadow rounded-md min-w-[200px]">
-        <div className="flex flex-col">
-          {favoritedProducts.length > 0 ? (
-            <div>
-              <div className="flex items-center p-2 font-semibold text-gray-500 text-lg">
-                <HiHeart />
-                <h4>Favorites</h4>
-              </div>
-              {favoritedProducts.map((item) => (
-                <div
-                  key={item.id}
-                  className="flex flex-col-reverse w-full pb-8 px-2 justify-center"
-                >
-                  <Link href={`/detail/${item.id}`}>
-                    <div className="relative h-52 w-52 hover:opacity-95">
-                    {/* <HiHeart className="absolute top-1 right-1 h-7 w-7 z-50 text-red-500" /> */}
-                    <button
-                    className="hover:bg-gray-200 rounded-full p-2 transition duration-500 ease-out"
-                    onClick={(event) => handleFavoriteClick(event, product.id)}
-                  >
-                    {favorites.includes(product.id) ? (
-                      <HiHeart className="absolute top-1 right-1 h-7 w-7 z-50 text-red-500" />
-                    ) : (
-                      <HiOutlineHeart className="absolute top-1 right-1 h-7 w-7 z-50 text-red-500" />
-                    )}
-                  </button>
-
-                      <Image
-                        src={item.image}
-                        alt="fav-image"
-                        fill
-                        style={{ objectFit: "cover" }}
-                        className="rounded-md animate-fade"
-                      />
-                    </div>
-                    <div className="absolute text-gray-500 z-50">
-                      {item.title}
-                    </div>
-                  </Link>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div>
-              <div className="flex items-center p-2 font-semibold text-gray-500 text-lg">
-                <HiClipboardCheck />
-                <h4>Similar Items</h4>
-              </div>
-              {similarProducts.map((item) => (
-                <div
-                  key={item.id}
-                  className="flex w-full pb-8 px-2 justify-center"
-                >
-                  <Link href={`/detail/${item.id}`}>
-                    <div className="relative h-52 w-52 hover:opacity-95">
-                      <Image
-                        src={item.image}
-                        alt="fav-image"
-                        fill
-                        style={{ objectFit: "cover" }}
-                        className="rounded-md animate-fade"
-                      />
-                    </div>
-                    <div className="absolute text-gray-500 z-50">
-                      {item.title}
-                    </div>
-                  </Link>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
+ 
       {/* Mid */}
       <div className="flex flex-col  xl:items-end xl:mx-2 items-center 2xl:gap-2 w-full border-2 bg-white shadow-sm rounded-md">
-        {/* Cart Popflash */}
-        {/* <div
-          className={`transition-all duration-500 absolute top-14 right-1 bg-gray-100 rounded-md w-48 shadow-lg ${
-            showCart ? "opacity-100 z-50" : "opacity-0"
-          }`}
-        >
-          <h2 className="px-2">Added To Cart</h2>
-          <div
-            key={product.id}
-            className="w-full grid gap-2 mb-1 rounded-md px-2 py-1"
-          >
-            <div>
-              <div className="relative w-full md:w-44 h-44">
-                <Image
-                  alt="cart-flash-image"
-                  src={product.image}
-                  fill
-                  style={{ objectFit: "cover" }}
-                  className="rounded-l-md"
-                />
-              </div>
-              <div className="flex flex-col justify-between">
-                <h2 className="font-semibold text-sm">{product.title}</h2>
-
-                <h5 className="w-full flex justify-between text-xs">
-                  <span>{product.category}</span> <span> ${product.price}</span>
-                </h5>
-              </div>
-            </div>
-          </div>
-        </div> */}
 
         {/* Mid-heading */}
         {/* <div className="styleRow p-2 xl:p-4">
@@ -243,6 +101,31 @@ function Detail() {
                   {product.description}
                 </p>
               </div>
+
+              <div className="flex gap-4 py-5">
+              <button
+        value="Option A"
+        className={`button rounded-full border-2 ${option === "Option A" ? "bg-indigo-500 text-white" : "bg-white"} bg-white`}
+        onClick={() => updateOption(product.id, "Option A")}
+      >
+        Option A
+      </button>
+      <button
+        value="Option B"
+        className={`button rounded-full border-2 ${option === "Option B" ? "bg-indigo-500 text-white" : "bg-white"} bg-white`}
+        onClick={() => updateOption(product.id,"Option B")}
+      >
+        Option B
+      </button>
+      <button
+        value="Option C"
+        className={`button rounded-full border-2 ${option === "Option C" ? "bg-indigo-500 text-white" : "bg-white"} bg-white`}
+        onClick={() => updateOption(product.id,"Option C")}
+      >
+        Option C
+      </button>
+              </div>
+
               <div className="flex justify-between items-center">
                 <div>
                   <p className="text-md text-gray-500 font-semibold">
@@ -310,7 +193,7 @@ function Detail() {
         </div>
       </div>
       {/* Right */}
-      <div className="hidden flex-none xl:flex bg-gray-100 shadow rounded-md min-w-[200px]">
+      <div className="hidden flex-none xl:flex bg-gray-100 shadow rounded-md min-w-[220px]">
         {cart.length > 0 ? (
           <div className="flex flex-col">
             <div className="flex items-center p-2 font-semibold text-gray-500 text-lg">
@@ -332,7 +215,7 @@ function Detail() {
                       className="rounded-md animate-fade"
                     />
                   </div>
-                  <div className="absolute text-gray-500 z-50">
+                  <div className="absolute text-gray-500">
                     {item.title}
                   </div>
                 </Link>

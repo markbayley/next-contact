@@ -21,6 +21,8 @@ const Cart = () => {
     );
   }
 
+  console.log("cart", cart)
+
   return (
     <div className="flex justify-center w-full">
       <div className="max-w-[850px] animate-fade">
@@ -59,7 +61,7 @@ const Cart = () => {
                 </button>
               </div>
               <div className="flex flex-col justify-between p-2  ">
-                <h2 className="font-semibold">{product.title}</h2>
+                <h2 className="font-semibold">{product.title + " (" + product?.option + ") "}</h2>
                 <h3>{product.description.substring(0, 70)}...</h3>
                 <h5 className="pt-2 md:pb-2 text-md">${product.price}</h5>
               </div>

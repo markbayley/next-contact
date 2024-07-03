@@ -14,7 +14,7 @@ import { useRouter } from "next/router";
 import { products } from "../data/products.js";
 
 const Favorites = () => {
-  const { removeFromCart, favorites } = useCart();
+  const { removeFromFavorites, favorites } = useCart();
 
   const favoritedProducts = products.filter((item) =>
     favorites.includes(item.id)
@@ -78,7 +78,7 @@ const Favorites = () => {
                   />
                 </Link>
                 <button
-                  onClick={() => removeFromCart(product.id)}
+                  onClick={() => removeFromFavorites(product.id)}
                   className="m-1"
                 >
                   <HiOutlineX className="h-6 w-6 p-1 button rounded shadow-sm bg-gray-100" />
