@@ -22,7 +22,7 @@ export default function Home() {
   const [searchValue, setSearchValue] = useState("");
   const [sortOrder, setSortOrder] = useState("");
 
-  const { favorites, updateFavorite } = useCart();
+  const { favorites, handleFavoriteClick } = useCart();
 
   const handleSort = (order) => {
     const sortedData =
@@ -34,7 +34,7 @@ export default function Home() {
 
   const handleSearch = () => {
     const searchResults = allProducts.filter((item) =>
-      item.title.toLowerCase().includes(searchValue.toLowerCase())
+      item.title.toLowerCase().includes(searchValue.toLowerCase()) ||  item.category.toLowerCase().includes(searchValue.toLowerCase()) ||  item.description.toLowerCase().includes(searchValue.toLowerCase())
     );
     if (searchValue === "") {
       setSearchedProducts(products);
@@ -43,12 +43,18 @@ export default function Home() {
     }
   };
 
-  const handleFavoriteClick = (event, productId) => {
-    event.preventDefault();
-    event.stopPropagation();
-    const isFavorited = favorites.includes(productId);
-    updateFavorite(productId, !isFavorited);
-  };
+  if (searchedProducts.length === 0) {
+    return (
+      <div className="flex flex-col w-full min-h-screen items-center justify-center">
+        <p> No matching results found</p>
+       
+          <div onClick={() => {
+                    setSearchedProducts(allProducts), setSearchValue("");
+                  }} className="button mt-4">Continue Shopping</div>
+       
+      </div>
+    );
+  }
 
   return (
     <div className="pt-4">
@@ -69,14 +75,14 @@ export default function Home() {
                   }}
                   className="button rounded-l-none"
                 >
-                  <HiOutlineReply className="h-5 w-5" />
+                  <HiOutlineReply className="h-5 w-5 text-white" />
                 </button>
               ) : (
                 <button
                   onClick={handleSearch}
                   className="button rounded-l-none"
                 >
-                  <HiOutlineSearch className="h-5 w-5" />
+                  <HiOutlineSearch className="h-5 w-5 text-white" />
                 </button>
               )}
             </div>
@@ -88,7 +94,7 @@ export default function Home() {
                     onClick={() => {
                       handleSort("ascending"), setSortOrder("ascending");
                     }}
-                    className="button"
+                    className="button bg-indigo-500 text-white"
                   >
                     <HiSortDescending className="h-6 w-6" />
                   </button>
@@ -99,7 +105,7 @@ export default function Home() {
                     onClick={() => {
                       handleSort("descending"), setSortOrder("descending");
                     }}
-                    className="button"
+                    className="button bg-indigo-500 text-white"
                   >
                     <HiSortAscending className="h-6 w-6" />
                   </button>
@@ -110,24 +116,28 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 pt-8 animate-fade">
             {searchedProducts.map((item) => (
-              <div className="shadow-sm bg-gray-100 rounded-md p-1" key={item.id}>
+              <div
+                className="shadow-sm bg-gray-100 rounded-md p-1"
+                key={item.id}
+              >
                 <Link href={`/detail/${item.id}`}>
                   <div className="styleCenter border relative w-full md:w-72 h-72 text-white text-lg hover:opacity-90 transition duration-150 ease-out">
                     <div className="styleCenter text-gray-500 text-lg z-20 opacity-0 hover:opacity-100 transition duration-1000 ease-out">
                       <HiOutlineEye className="h-10 w-10 text-white" />
                     </div>
                     <div className="absolute top-2 right-2 z-20">
-                      <button className="hover:bg-gray-200 rounded-full p-2 transition duration-200 ease-out"
-                       onClick={(event) => handleFavoriteClick(event, item.id)}
-                       >
-                        {favorites.includes(item.id) ? (
+                      <button
+                        className="hover:bg-gray-200 rounded-full p-2 transition duration-200 ease-out"
+                        onClick={(event) => handleFavoriteClick(event, item)}
+                      >
+                        {favorites.includes(item) ? (
                           <HiHeart className="h-8 w-8 text-red-500" />
                         ) : (
                           <HiOutlineHeart className="h-8 w-8 text-red-500" />
                         )}
                       </button>
                     </div>
-                    {/* <div className="relative"> */}
+         
                     <Image
                       src={item.image}
                       alt="product-image"
@@ -135,7 +145,7 @@ export default function Home() {
                       style={{ objectFit: "cover" }}
                       className="hover:opacity-95 rounded-t-md"
                     />
-                    {/* </div> */}
+                
                   </div>
                 </Link>
                 <div className="p-2">
@@ -155,4 +165,3 @@ export default function Home() {
     </div>
   );
 }
-

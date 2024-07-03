@@ -80,7 +80,7 @@ export default function Auth() {
   }
   return (
     <>
-      <button onClick={() => signIn()} className="button">
+      <button onClick={() => signIn()} className="button text-white">
         Login
       </button>
     </>

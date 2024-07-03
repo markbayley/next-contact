@@ -16,14 +16,17 @@ import {
 function Detail() {
   const router = useRouter();
   const { id } = router.query;
-  const { cart, favorites, option, addToCart, updateFavorite, updateOption } =
-    useCart();
+  const {
+    cart,
+    favorites,
+    option,
+    error,
+    addToCart,
+    handleFavoriteClick,
+    updateOption,
+  } = useCart();
   const product = products.find((item) => item.id === parseInt(id));
-
-  const isFavorited = favorites.includes(product);
   const isAdded = cart.find((item) => item.id === product.id);
-
-  //const [showCart, setShowCart] = useState(false);
 
   if (!product) {
     return <div>Product not found</div>;
@@ -31,22 +34,7 @@ function Detail() {
 
   const handleAddToCart = () => {
     addToCart(product);
-    //setShowCart(true);
   };
-
-  const handleFavoriteClick = (event) => {
-    event.preventDefault();
-    event.stopPropagation();
-    const isFavorited = favorites.includes(product);
-    updateFavorite(product, !isFavorited);
-  };
-
-  console.log("favorites", favorites);
-  console.log("isFavorited", isFavorited);
-
-  console.log("cart", cart.includes(product));
-
-  console.log("option", option);
 
   return (
     <div className="flex ">
@@ -141,7 +129,9 @@ function Detail() {
               <div className="">
                 <div className="flex justify-between items-center">
                   <div>
-                    <h1 className="text-2xl 3xl:text-3xl">{product.title} - Main Title Here</h1>
+                    <h1 className="text-2xl 3xl:text-3xl">
+                      {product.title} - Main Title Here
+                    </h1>
                     <h2 className="font-semibold text-md 3xl:text-2xl text-gray-500">
                       {product.category}
                     </h2>
@@ -166,42 +156,47 @@ function Detail() {
                 {/* <p className="py-2 xl:text-xl 2xl:text-2xl 3xl:text-3xl 3xl:leading-10">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. </p> */}
               </div>
 
-            <div>  <h4  className="text-md 3xl:text-2xl text-gray-500 font-semibold"> Select an option</h4>
-              <div className="flex gap-4 py-2 3xl:text-2xl">
-                <button
-                  value="Option A"
-                  className={`button rounded-full border-2 ${
-                    option === "Option A"
-                      ? "bg-indigo-500 text-white"
-                      : "bg-white"
-                  }`}
-                  onClick={() => updateOption(product.id, "Option A")}
-                >
-                  Option A
-                </button>
-                <button
-                  value="Option B"
-                  className={`button rounded-full border-2 ${
-                    option === "Option B"
-                      ? "bg-indigo-500 text-white"
-                      : "bg-white"
-                  }`}
-                  onClick={() => updateOption(product.id, "Option B")}
-                >
-                  Option B
-                </button>
-                <button
-                  value="Option C"
-                  className={`button rounded-full border-2 ${
-                    option === "Option C"
-                      ? "bg-indigo-500 text-white"
-                      : "bg-white"
-                  }`}
-                  onClick={() => updateOption(product.id, "Option C")}
-                >
-                  Option C
-                </button>
-              </div>
+              <div>
+                {" "}
+                <h4 className={ error !== "" ? "text-md 3xl:text-2xl text-red-500 font-semibold" : "text-md 3xl:text-2xl text-gray-500 font-semibold"}>
+                  {" "}
+                  Select an option
+                </h4>
+                <div className="flex gap-4 py-2 3xl:text-2xl">
+                  <button
+                    value="Option A"
+                    className={`button rounded-full border-2 ${
+                      option === "Option A"
+                        ? "bg-indigo-500 text-white"
+                        : "bg-white"
+                    }`}
+                    onClick={() => updateOption(product.id, "Option A")}
+                  >
+                    Option A
+                  </button>
+                  <button
+                    value="Option B"
+                    className={`button rounded-full border-2 ${
+                      option === "Option B"
+                        ? "bg-indigo-500 text-white"
+                        : "bg-white"
+                    }`}
+                    onClick={() => updateOption(product.id, "Option B")}
+                  >
+                    Option B
+                  </button>
+                  <button
+                    value="Option C"
+                    className={`button rounded-full border-2 ${
+                      option === "Option C"
+                        ? "bg-indigo-500 text-white"
+                        : "bg-white"
+                    }`}
+                    onClick={() => updateOption(product.id, "Option C")}
+                  >
+                    Option C
+                  </button>
+                </div>
               </div>
 
               <div className="flex justify-between items-center">
@@ -213,12 +208,13 @@ function Detail() {
                     ${product.price}
                   </h2>
                 </div>
+            
                 <button
                   onClick={handleAddToCart}
                   className={
                     isAdded
                       ? "flex button bg-gray-200 3xl:text-2xl"
-                      : "flex button 3xl:text-2xl"
+                      : "flex button 3xl:text-2xl text-white"
                   }
                 >
                   {isAdded ? "Item In Cart" : "Add To Cart"}

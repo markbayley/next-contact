@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { HiOutlineHeart, HiOutlineInformationCircle, HiOutlineMail, HiOutlineShoppingCart } from "react-icons/hi";
+import { HiOutlineHeart, HiOutlineHome, HiOutlineInformationCircle, HiOutlineMail, HiOutlineShoppingCart } from "react-icons/hi";
 import Auth from "./Auth";
 import { useCart } from "../context/CartContext";
 import Image from "next/image";
@@ -13,6 +13,9 @@ function Header() {
       <div className="flex gap-4">
        <Link href="/"><div className="relative h-7 w-7 md:pl-3"> <Image src="/favicon.ico" alt="logo" fill style={{objectFit: "contain"}} /></div></Link> 
         <ul className="flex gap-4 pt-[2px]">
+        <li className="hidden md:flex hover:text-gray-500">
+          <Link className="flex" href="/"><HiOutlineHome className="h-6 w-6 text-gray-600" /><span className="hidden md:flex">Home</span> </Link>
+          </li>
           <li className="hover:text-gray-500">
           <Link className="flex" href="/about"><HiOutlineInformationCircle className="h-6 w-6 text-gray-600" /><span className="hidden md:flex">About</span> </Link>
           </li>

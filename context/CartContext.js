@@ -10,8 +10,13 @@ export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [option, setOption] = useState("");
+  const [error, setError] = useState()
 
   const addToCart = (product) => {
+    if (option === "" ) {
+      setError("Select an option")
+      return
+    }
     setCart((prevCart) => {
       const existingProduct = prevCart.find((item) => item.id === product.id);
       if (existingProduct) {
@@ -59,10 +64,21 @@ export const CartProvider = ({ children }) => {
     });
   };
 
+  const handleFavoriteClick = (event, product) => {
+    event.preventDefault();
+    event.stopPropagation();
+    const isFavorited = favorites.includes(product);
+    updateFavorite(product, !isFavorited);
+  };
+
   const removeFromFavorites = (productId) => {
     setFavorites((prevCart) =>
       prevCart.filter((item) => item.id !== productId)
     );
+  };
+
+  const getTotalPrice = () => {
+    return cart.reduce((total, item) => total + item.price * item.quantity, 0);
   };
 
   return (
@@ -71,12 +87,14 @@ export const CartProvider = ({ children }) => {
         cart,
         favorites,
         option,
+        error,
         addToCart,
         removeFromCart,
         removeFromFavorites,
         updateQuantity,
-        updateFavorite,
+        handleFavoriteClick,
         updateOption,
+        getTotalPrice
       }}
     >
       {children}

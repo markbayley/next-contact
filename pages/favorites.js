@@ -14,11 +14,7 @@ import { useRouter } from "next/router";
 import { products } from "../data/products.js";
 
 const Favorites = () => {
-  const { removeFromFavorites, favorites } = useCart();
-
-  // const favoritedProducts = products.filter((item) =>
-  //   favorites.includes(item.id)
-  // );
+  const { removeFromFavorites, favorites, addToCart } = useCart();
 
   const router = useRouter();
 
@@ -32,12 +28,13 @@ const Favorites = () => {
       </div>
     );
   }
+  console.log("favorites", favorites)
 
   return (
     <div className="flex justify-center w-full pt-2">
       <div className="max-w-[850px] animate-fade">
         <div className="styleRow max-w-[850px] mb-2">
-          <h2 className="text-xl text-gray-500 ">
+          <h2 className="text-lg text-gray-500 ">
             <Link href="/" className="hover:text-gray-400">
               Shop{" "}
             </Link>
@@ -85,21 +82,21 @@ const Favorites = () => {
                 </button>
               </div>
               <div className="flex flex-col justify-between p-2  ">
-                <h2 className="font-semibold">{product.title}</h2>
-                <h3>{product.description.substring(0, 70)}...</h3>
+                <h2 className="font-semibold">  {product.title + " (" + product?.option + ") "}</h2>
+                <h3>{product?.description?.substring(0, 70)}...</h3>
                 <h5 className="pt-2 md:pb-2 text-md">${product.price}</h5>
               </div>
               <div className="styleCol justify-between p-2">
-              <div className="styleRow "> <h2>
-                  
-                  </h2><HiHeart className=" h-7 w-7 z-50 text-red-500" /></div>
+                <div className="styleRow ">
+                  {" "}
+                  <h2></h2>
+                  <HiHeart className=" h-7 w-7 z-50 text-red-500" />
+                </div>
 
                 <div className="styleRow ">
-                  <h2>
-                  
-                  </h2>
-                  <Link href="/">
-                    <div className="button">Buy Now</div>
+                  <h2></h2>
+                  <Link href="/cart">
+                    <div onClick={() => addToCart(product)} className="button text-white">Add To Cart</div>
                   </Link>
                 </div>
               </div>
