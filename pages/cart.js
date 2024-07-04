@@ -21,7 +21,7 @@ const Cart = () => {
       <div className="flex flex-col w-full min-h-screen items-center justify-center">
         <p> Your cart is empty</p>
         <Link href="/">
-          <div className="button mt-4">Continue Shopping</div>
+          <div className="button mt-4 text-white">Continue Shopping</div>
         </Link>
       </div>
     );
@@ -57,7 +57,7 @@ const Cart = () => {
         <div className="flex flex-col gap-4">
           {cart.map((product) => (
             <div
-              key={product.id}
+              key={product.id+product.option}
               className="w-full md:border-2 bg-gray-100 shadow-sm rounded-md grid md:grid-cols-3 p-1"
             >
               <div className="relative w-full h-40">
@@ -71,7 +71,7 @@ const Cart = () => {
                   />
                 </Link>
                 <button
-                  onClick={() => removeFromCart(product.id)}
+                  onClick={() => removeFromCart(product)}
                   className="m-1"
                 >
                   <HiOutlineX className="h-6 w-6 p-1 button rounded shadow-sm bg-gray-200" />
@@ -89,7 +89,7 @@ const Cart = () => {
                   <div className="flex items-center space-x-2 ">
                     <button
                       onClick={() =>
-                        updateQuantity(product.id, product.quantity - 1)
+                        updateQuantity(product, product.quantity - 1)
                       }
                       className=""
                     >
@@ -98,7 +98,7 @@ const Cart = () => {
                     <span>{product.quantity}</span>
                     <button
                       onClick={() =>
-                        updateQuantity(product.id, product.quantity + 1)
+                        updateQuantity(product, product.quantity + 1)
                       }
                       className=" "
                     >
@@ -136,7 +136,7 @@ const Cart = () => {
             </div>
 
             <div className="flex items-center w-full justify-between font-semibold  ">
-              <h3 >Total: ${getTotalPrice().toFixed(2)}</h3> 
+              <h3 className="md:pl-3">Total: ${getTotalPrice().toFixed(2)}</h3> 
              
             <Link href="/cart">
               <div className="flex items-center button text-white">

@@ -9,8 +9,8 @@ export const useCart = () => {
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [favorites, setFavorites] = useState([]);
-  const [option, setOption] = useState("");
-  const [error, setError] = useState()
+  const [option, setOption] = useState("Option A");
+  const [error, setError] = useState("")
 
   const addToCart = (product) => {
     if (option === "" ) {
@@ -18,7 +18,7 @@ export const CartProvider = ({ children }) => {
       return
     }
     setCart((prevCart) => {
-      const existingProduct = prevCart.find((item) => item.id === product.id);
+      const existingProduct = prevCart.find((item) => item.id === product.id && item.option === option);
       if (existingProduct) {
         return prevCart.map((item) =>
           item.id === product.id
@@ -31,14 +31,14 @@ export const CartProvider = ({ children }) => {
     });
   };
 
-  const removeFromCart = (productId) => {
-    setCart((prevCart) => prevCart.filter((item) => item.id !== productId));
+  const removeFromCart = (product) => {
+    setCart((prevCart) => prevCart.filter((item) => item !== product));
   };
 
-  const updateQuantity = (productId, quantity) => {
+  const updateQuantity = (product, quantity) => {
     setCart((prevCart) =>
       prevCart.map((item) =>
-        item.id === productId
+        item === product && item.option === product.option
           ? { ...item, quantity: Math.max(1, quantity) }
           : item
       )
@@ -46,10 +46,11 @@ export const CartProvider = ({ children }) => {
   };
 
   const updateOption = (productId, newOption) => {
+    setError("")
     setOption(newOption);
     setCart((prevCart) =>
       prevCart.map((item) =>
-        item.id === productId ? { ...item, option: option } : item
+        item.id === productId && item.option === option ? { ...item, option: option } : item
       )
     );
   };
@@ -94,7 +95,8 @@ export const CartProvider = ({ children }) => {
         updateQuantity,
         handleFavoriteClick,
         updateOption,
-        getTotalPrice
+        getTotalPrice,
+        setOption
       }}
     >
       {children}

@@ -22,7 +22,7 @@ export default function Home() {
   const [searchValue, setSearchValue] = useState("");
   const [sortOrder, setSortOrder] = useState("");
 
-  const { favorites, handleFavoriteClick } = useCart();
+  const { favorites, handleFavoriteClick, setOption } = useCart();
 
   const handleSort = (order) => {
     const sortedData =
@@ -119,6 +119,7 @@ export default function Home() {
               <div
                 className="shadow-sm bg-gray-100 rounded-md p-1"
                 key={item.id}
+                onClick={() => setOption("")}
               >
                 <Link href={`/detail/${item.id}`}>
                   <div className="styleCenter border relative w-full md:w-72 h-72 text-white text-lg hover:opacity-90 transition duration-150 ease-out">

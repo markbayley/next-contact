@@ -24,9 +24,10 @@ function Detail() {
     addToCart,
     handleFavoriteClick,
     updateOption,
+    setOption
   } = useCart();
   const product = products.find((item) => item.id === parseInt(id));
-  const isAdded = cart.find((item) => item.id === product.id);
+  const isAdded = cart.find((item) => item.id === product.id && item.option === option);
 
   if (!product) {
     return <div>Product not found</div>;
@@ -35,6 +36,7 @@ function Detail() {
   const handleAddToCart = () => {
     addToCart(product);
   };
+
 
   return (
     <div className="flex ">
@@ -236,8 +238,8 @@ function Detail() {
               </div>
             </Link>
             {cart.map((item) => (
-              <div key={item.id} className="grid w-full px-2 pb-4 ">
-                <div className="relative  aspect-square hover:opacity-95">
+              <div key={item.id+item.option} className="grid w-full px-2 pb-4 ">
+                <div onClick={() => setOption(item.option)}className="relative  aspect-square hover:opacity-95">
                   <Link href={`/detail/${item.id}`}>
                     <Image
                       src={item.image}
@@ -249,7 +251,7 @@ function Detail() {
                   </Link>
                 </div>
 
-                <div className=" text-gray-500">{item.title}</div>
+                <div className=" text-gray-500">{item.title + " " + item.option}</div>
               </div>
             ))}
             <Link className="" href={`/cart`}>
