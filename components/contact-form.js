@@ -12,7 +12,7 @@ export default function ContactForm() {
     <div className="w-full flex justify-center pt-16">
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col gap-3  text-gray-500 min-w-80 lg:min-w-[40vw]"
+        className="flex flex-col gap-3  text-gray-500 min-w-80 lg:min-w-[40vw] px-2"
       >
         <div className="flex items-center justify-between"><h2 className=" text-2xl"> CONTACT US</h2><div className="flex gap-2"><FaSquareTwitter className="h-6 w-6"/><FaInstagram className="h-6 w-6"/> <FaSquareFacebook className="h-6 w-6"/>  </div></div>
         <label htmlFor="email" className="mb-0">

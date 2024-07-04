@@ -1,14 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { products } from "../../data/products.js";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useCart } from "../../context/CartContext.js";
 import {
   HiArrowRight,
-  HiClipboardCheck,
   HiHeart,
-  HiOutlineEye,
   HiOutlineHeart,
   HiShoppingCart,
 } from "react-icons/hi";
@@ -24,19 +21,29 @@ function Detail() {
     addToCart,
     handleFavoriteClick,
     updateOption,
-    setOption
+    setOption,
+    products
   } = useCart();
   const product = products.find((item) => item.id === parseInt(id));
-  const isAdded = cart.find((item) => item.id === product.id && item.option === option);
+  const isAdded = cart.some(
+    (item) => item.id === product.id && item.option === option
+  );
+
+  const isFavorited = favorites.some(
+    (item) => item.id === product.id && item.option === option
+  );
+
 
   if (!product) {
-    return <div>Product not found</div>;
+    return (
+      <div className="flex flex-col w-full min-h-screen items-center justify-center">
+        <p> No product selected</p>
+        <Link href="/">
+          <div className="button mt-4 text-white">Continue Shopping</div>
+        </Link>
+      </div>
+    );
   }
-
-  const handleAddToCart = () => {
-    addToCart(product);
-  };
-
 
   return (
     <div className="flex ">
@@ -142,7 +149,7 @@ function Detail() {
                     className="hover:bg-gray-200 rounded-full p-2 transition duration-500 ease-out"
                     onClick={(event) => handleFavoriteClick(event, product)}
                   >
-                    {favorites.includes(product) ? (
+                    {isFavorited ? (
                       <HiHeart className="h-8 w-8 3xl:h-10 3xl:w-10 text-red-500" />
                     ) : (
                       <HiOutlineHeart className="h-8 w-8 3xl:h-10 3xl:w-10 text-red-500" />
@@ -152,16 +159,19 @@ function Detail() {
               </div>
 
               <div>
-                <p className="py-2 xl:text-xl 2xl:text-2xl 3xl:text-3xl 3xl:leading-10">
+              <p className="py-2 xl:text-xl 2xl:text-2xl 3xl:text-3xl 3xl:leading-10">
                   {product.description}
                 </p>
-                {/* <p className="py-2 xl:text-xl 2xl:text-2xl 3xl:text-3xl 3xl:leading-10">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. </p> */}
               </div>
 
               <div>
-                {" "}
-                <h4 className={ error !== "" ? "text-md 3xl:text-2xl text-red-500 font-semibold" : "text-md 3xl:text-2xl text-gray-500 font-semibold"}>
-                  {" "}
+                <h4
+                  className={
+                    error !== ""
+                      ? "text-md 3xl:text-2xl text-red-500 font-semibold"
+                      : "text-md 3xl:text-2xl text-gray-500 font-semibold"
+                  }
+                >
                   Select an option
                 </h4>
                 <div className="flex gap-4 py-2 3xl:text-2xl">
@@ -210,36 +220,59 @@ function Detail() {
                     ${product.price}
                   </h2>
                 </div>
-            
-                <button
-                  onClick={handleAddToCart}
-                  className={
-                    isAdded
-                      ? "flex button bg-gray-200 3xl:text-2xl"
-                      : "flex button 3xl:text-2xl text-white"
-                  }
-                >
-                  {isAdded ? "Item In Cart" : "Add To Cart"}
-                </button>
+                <div className="flex gap-2">
+                  {/* <button
+                    onClick={(event) => handleFavoriteClick(event, product)}
+                    className={
+                      isFavorited
+                        ? "flex button bg-gray-200 3xl:text-2xl"
+                        : "flex button 3xl:text-2xl text-white"
+                    }
+                  >
+                    {isFavorited ? "Item Favorited" : "Add Favorite"}
+                  </button> */}
+
+                  <button
+                    onClick={() => addToCart(product)}
+                    className={
+                      isAdded
+                        ? "flex button bg-gray-200 3xl:text-2xl"
+                        : "flex button 3xl:text-2xl text-white"
+                    }
+                  >
+                    {isAdded ? "Item In Cart" : "Add To Cart"}
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        {/* Mid-bottom */}
       </div>
+
       {/* Right */}
-      <div className="hidden  lg:grid w-full bg-gray-100 shadow rounded-md max-w-[20vw]">
+      <div className="hidden lg:grid w-full bg-gray-100 shadow rounded-md max-w-[20vw]">
         {cart.length > 0 ? (
-          <div className="">
-            <Link href="/cart">
-              <div className="flex items-center p-2 font-semibold text-gray-500 text-lg 3xl:text-2xl">
+          <div>
+       
+              {/* <div className="flex items-center p-2 font-semibold text-gray-500 text-lg 3xl:text-2xl">
                 <HiShoppingCart />
                 <h4>Cart</h4>
-              </div>
+              </div> */}
+           
+            <Link className="" href={`/cart`}>
+              <button className="button m-2 flex items-center text-white">
+                View Cart <HiArrowRight className="h-6 w-6 px-1" />
+              </button>
             </Link>
             {cart.map((item) => (
-              <div key={item.id+item.option} className="grid w-full px-2 pb-4 ">
-                <div onClick={() => setOption(item.option)}className="relative  aspect-square hover:opacity-95">
+              <div
+                key={item.id + item.option}
+                className="grid w-full px-2 pb-4"
+              >
+                <div
+                  onClick={() => setOption(item.option)}
+                  className="relative aspect-square hover:opacity-95"
+                >
                   <Link href={`/detail/${item.id}`}>
                     <Image
                       src={item.image}
@@ -251,20 +284,20 @@ function Detail() {
                   </Link>
                 </div>
 
-                <div className=" text-gray-500">{item.title + " " + item.option}</div>
+                <div className="text-gray-500">
+                  {item.title + " " + item.option}
+                </div>
               </div>
             ))}
             <Link className="" href={`/cart`}>
-              <button className="button m-2 flex items-center text-white ">
+              <button className="button m-2 flex items-center text-white">
                 View Cart <HiArrowRight className="h-6 w-6 px-1" />
               </button>
             </Link>
           </div>
         ) : (
           <div className="flex flex-col">
-            <h4 className="  px-2  font-semibold text-gray-500 text-lg">
-              Cart
-            </h4>
+            <h4 className="px-2 font-semibold text-gray-500 text-lg">Cart</h4>
             <div className="flex min-w-[200px] h-80 items-center justify-center">
               Cart is empty
             </div>
@@ -276,3 +309,6 @@ function Detail() {
 }
 
 export default Detail;
+
+           
+

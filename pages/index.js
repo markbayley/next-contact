@@ -10,19 +10,18 @@ import {
   HiSortAscending,
   HiSortDescending,
 } from "react-icons/hi";
-import { products } from "../data/products.js";
 import Image from "next/image";
 import { useCart } from "../context/CartContext.js";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const { favorites, handleFavoriteClick, setOption, products } = useCart();
+
   const [allProducts, setAllProducts] = useState(products);
   const [searchedProducts, setSearchedProducts] = useState(products);
   const [searchValue, setSearchValue] = useState("");
   const [sortOrder, setSortOrder] = useState("");
-
-  const { favorites, handleFavoriteClick, setOption } = useCart();
 
   const handleSort = (order) => {
     const sortedData =
@@ -115,7 +114,12 @@ export default function Home() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 pt-8 animate-fade">
-            {searchedProducts.map((item) => (
+            {searchedProducts.map((item) => {
+                 const isFavorited = favorites.some(
+                  (favItem) =>
+                    favItem.id === item.id 
+                );
+                return (
               <div
                 className="shadow-sm bg-gray-100 rounded-md p-1"
                 key={item.id}
@@ -131,7 +135,7 @@ export default function Home() {
                         className="hover:bg-gray-200 rounded-full p-2 transition duration-200 ease-out"
                         onClick={(event) => handleFavoriteClick(event, item)}
                       >
-                        {favorites.includes(item) ? (
+                        {isFavorited ? (
                           <HiHeart className="h-8 w-8 text-red-500" />
                         ) : (
                           <HiOutlineHeart className="h-8 w-8 text-red-500" />
@@ -159,7 +163,8 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            ))}
+                );
+})}
           </div>
         </div>
       </main>
