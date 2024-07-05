@@ -6,13 +6,8 @@ import { HiArrowRight, HiHeart, HiOutlineX } from "react-icons/hi";
 import { useRouter } from "next/router";
 
 const Favorites = () => {
-  const {
-    cart,
-    removeFromFavorites,
-    favorites,
-    addToCart,
-    setOption,
-  } = useCart();
+  const { cart, removeFromFavorites, favorites, addToCart, setOption, transferToCart } =
+    useCart();
 
   const router = useRouter();
 
@@ -26,10 +21,6 @@ const Favorites = () => {
       </div>
     );
   }
-
- 
-
-
 
   return (
     <div className="flex justify-center w-full pt-2">
@@ -95,22 +86,25 @@ const Favorites = () => {
                 </div>
                 <div className="styleCol justify-between p-2">
                   <div className="styleRow">
+                  <div></div>
                     <HiHeart className="h-7 w-7 z-20 text-red-500" />
                   </div>
                   <div className="styleRow">
+                  <div></div>
                     {product.option && product.option !== "" ? (
                       isAdded ? (
+                       
                         <div className="button bg-gray-200 text-black">
                           Item In Cart
                         </div>
                       ) : (
                         // <Link href="/cart">
-                          <div
-                            onClick={() => addToCart(product)}
-                            className="button text-white"
-                          >
-                            Add To Cart
-                          </div>
+                        <div
+                          onClick={() => transferToCart(product)}
+                          className="button text-white"
+                        >
+                          Add To Cart
+                        </div>
                         // </Link>
                       )
                     ) : (

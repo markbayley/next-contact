@@ -16,7 +16,7 @@ export const CartProvider = ({ children }) => {
   const addToCart = (product) => {
     if (option === "") {
       setError("Select an option");
-      console.log("1")
+      console.log("1");
       return;
     }
 
@@ -24,19 +24,24 @@ export const CartProvider = ({ children }) => {
       const existingProduct = prevCart.find(
         (item) => item.id === product.id && item.option === option
       );
-      console.log("option", option)
+      console.log("option", option);
       console.log("favorites", favorites);
-      console.log("existingProduct", existingProduct)
+      console.log("existingProduct", existingProduct);
 
       if (existingProduct) {
         setError("Product with this option is already in the cart");
-        console.log("3")
+        console.log("3");
         return prevCart;
       } else {
-        console.log("4")
+        console.log("4");
         return [...prevCart, { ...product, quantity: 1, option: option }];
-        
       }
+    });
+  };
+
+  const transferToCart = (product) => {
+    setCart((prevCart) => {
+      return [...prevCart, { ...product, quantity: 1, option: product.option }];
     });
   };
 
@@ -92,26 +97,23 @@ export const CartProvider = ({ children }) => {
       (fav) => fav.id === product.id && fav.option === ""
     );
 
-    
-
     if (favoriteWithoutOption) {
-      setFavorites((prevFavorites) => prevFavorites.filter(
-        (item) =>  item.option !== "")
+      setFavorites((prevFavorites) =>
+        prevFavorites.filter((item) => item.option !== "")
       );
-      console.log("favoriteWithoutOption", favoriteWithoutOption)
+      console.log("favoriteWithoutOption", favoriteWithoutOption);
     }
-   
+
     updateFavorite(product, !isFavorited);
   };
 
   const removeFromFavorites = (product) => {
     setFavorites((prevCart) =>
-      prevCart.filter((item) => item.id !== product.id && item.option === product.option)
+      prevCart.filter(
+        (item) => item.id !== product.id || item.option !== product.option
+      )
     );
   };
-
-
-
 
   const getTotalPrice = () => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0);
@@ -133,6 +135,7 @@ export const CartProvider = ({ children }) => {
         updateOption,
         getTotalPrice,
         setOption,
+        transferToCart
       }}
     >
       {children}

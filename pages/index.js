@@ -126,13 +126,13 @@ export default function Home() {
                 onClick={() => setOption("")}
               >
                 <Link href={`/detail/${item.id}`}>
-                  <div className="styleCenter border relative w-full md:w-72 h-72 text-white text-lg hover:opacity-90 transition duration-150 ease-out">
-                    <div className="styleCenter text-gray-500 text-lg z-20 opacity-0 hover:opacity-100 transition duration-1000 ease-out">
+                  <div className="styleCenter border relative w-full md:w-72 h-72 text-white text-lg hover:opacity-90 active:scale-95 transition duration-50 ease-out">
+                    <div className="styleCenter text-gray-500 text-lg z-20 opacity-0 hover:opacity-100 transition duration-500 ease-out">
                       <HiOutlineEye className="h-10 w-10 text-white" />
                     </div>
                     <div className="absolute top-2 right-2 z-20">
                       <button
-                        className="hover:bg-gray-200 rounded-full p-2 transition duration-200 ease-out"
+                        className="hover:bg-gray-200 rounded-full p-2 active:scale-95 transition duration-200 ease-out"
                         onClick={(event) => handleFavoriteClick(event, item)}
                       >
                         {isFavorited ? (

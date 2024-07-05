@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useState } from "react";
 import { useCart } from "../../context/CartContext.js";
 import {
   HiArrowRight,
@@ -22,7 +22,7 @@ function Detail() {
     handleFavoriteClick,
     updateOption,
     setOption,
-    products
+    products,
   } = useCart();
   const product = products.find((item) => item.id === parseInt(id));
   const isAdded = cart.some(
@@ -33,6 +33,7 @@ function Detail() {
     (item) => item.id === product.id && item.option === option
   );
 
+  const [selectedImage, setSelectedImage] = useState([product.image, 0]);
 
   if (!product) {
     return (
@@ -72,65 +73,37 @@ function Detail() {
           <div className="grid md:grid-cols-2 gap-4 animate-fade ">
             {/* left side */}
             <div>
-              <div className="relative w-full  xl:w-full xl:max-h-[70vh] aspect-square">
-                <Image
-                  src={product.image}
-                  alt="detail-image"
-                  fill
-                  style={{ objectFit: "cover" }}
-                  className="rounded-md "
-                />
-              </div>
+            <div className="relative w-full xl:w-full xl:max-h-[70vh] aspect-square">
+        <Image
+          src={selectedImage[0]}
+          alt="detail-image"
+          fill
+          style={{ objectFit: "cover" }}
+          className="rounded-md"
+        />
+      </div>
 
-              <div className="w-full bg-white shadow-sm rounded-md lg:pt-0 flex justify-evenly lg:justify-between animate-fade">
-                <div className="grid grid-cols-5 gap-4 pt-4 w-full">
-                  <div className="relative  aspect-square hover:opacity-95 cursor-pointer">
-                    <Image
-                      src={product.image}
-                      alt="detail-image"
-                      fill
-                      style={{ objectFit: "cover" }}
-                      className="rounded-md"
-                    />
-                  </div>
-                  <div className="relative  aspect-square hover:opacity-95 cursor-pointer">
-                    <Image
-                      src={product.image}
-                      alt="detail-image"
-                      fill
-                      style={{ objectFit: "cover" }}
-                      className="rounded-md"
-                    />
-                  </div>
-                  <div className="relative aspect-square hover:opacity-95 cursor-pointer">
-                    <Image
-                      src={product.image}
-                      alt="detail-image"
-                      fill
-                      style={{ objectFit: "cover" }}
-                      className="rounded-md"
-                    />
-                  </div>
-                  <div className="relative  aspect-square hover:opacity-95 cursor-pointer">
-                    <Image
-                      src={product.image}
-                      alt="detail-image"
-                      fill
-                      style={{ objectFit: "cover" }}
-                      className="rounded-md"
-                    />
-                  </div>
-                  <div className="relative  aspect-square hover:opacity-95 cursor-pointer">
-                    <Image
-                      src={product.image}
-                      alt="detail-image"
-                      fill
-                      style={{ objectFit: "cover" }}
-                      className="rounded-md"
-                    />
-                  </div>
-                </div>
-              </div>
+      <div className="w-full bg-white shadow-sm rounded-md lg:pt-0 flex justify-evenly lg:justify-between animate-fade">
+        <div className="grid grid-cols-5 gap-4 pt-4 w-full">
+          {[...Array(5)].map((_, i) => (
+            <div
+              key={i}
+              onClick={() => setSelectedImage([product.image, i])}
+              className={`${
+                i === selectedImage[1] ? "ring-2 ring-amber-500 rounded-md" : ""
+              } relative aspect-square hover:opacity-95 cursor-pointer active:scale-95 transition duration-200 ease-out`}
+            >
+              <Image
+                src={product.image}
+                alt="detail-image"
+                fill
+                style={{ objectFit: "cover" }}
+                className="rounded-md"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
             </div>
 
             {/* right-side */}
@@ -146,20 +119,20 @@ function Detail() {
                     </h2>
                   </div>
                   <button
-                    className="hover:bg-gray-200 rounded-full p-2 transition duration-500 ease-out"
+                    className="hover:bg-gray-200 rounded-full p-2 active:scale-95 transition duration-200 ease-out"
                     onClick={(event) => handleFavoriteClick(event, product)}
                   >
                     {isFavorited ? (
-                      <HiHeart className="h-8 w-8 3xl:h-10 3xl:w-10 text-red-500" />
+                      <HiHeart className="h-8 w-8 3xl:h-10 3xl:w-10 text-red-500 " />
                     ) : (
-                      <HiOutlineHeart className="h-8 w-8 3xl:h-10 3xl:w-10 text-red-500" />
+                      <HiOutlineHeart className="h-8 w-8 3xl:h-10 3xl:w-10 text-red-500 " />
                     )}
                   </button>
                 </div>
               </div>
 
               <div>
-              <p className="py-2 xl:text-xl 2xl:text-2xl 3xl:text-3xl 3xl:leading-10">
+                <p className="py-2 xl:text-xl 2xl:text-2xl 3xl:text-3xl 3xl:leading-10">
                   {product.description}
                 </p>
               </div>
@@ -253,12 +226,11 @@ function Detail() {
       <div className="hidden lg:grid w-full bg-gray-100 shadow rounded-md max-w-[20vw]">
         {cart.length > 0 ? (
           <div>
-       
-              {/* <div className="flex items-center p-2 font-semibold text-gray-500 text-lg 3xl:text-2xl">
+            {/* <div className="flex items-center p-2 font-semibold text-gray-500 text-lg 3xl:text-2xl">
                 <HiShoppingCart />
                 <h4>Cart</h4>
               </div> */}
-           
+
             <Link className="" href={`/cart`}>
               <button className="button m-2 flex items-center text-white">
                 View Cart <HiArrowRight className="h-6 w-6 px-1" />
@@ -271,7 +243,11 @@ function Detail() {
               >
                 <div
                   onClick={() => setOption(item.option)}
-                  className="relative aspect-square hover:opacity-95"
+                  className={
+                    item.id === product.id && item.option === option
+                      ? "relative aspect-square hover:opacity-95 ring-2 ring-amber-500 rounded-md"
+                      : "relative aspect-square hover:opacity-95  "
+                  }
                 >
                   <Link href={`/detail/${item.id}`}>
                     <Image
@@ -279,13 +255,19 @@ function Detail() {
                       alt="fav-image"
                       fill
                       style={{ objectFit: "cover" }}
-                      className="rounded-md animate-fade"
+                      className="rounded-md animate-fade active:scale-95 transition duration-150 ease-out"
                     />
                   </Link>
                 </div>
 
-                <div className="text-gray-500">
-                  {item.title + " " + item.option}
+                <div
+                  className={
+                    item.id === product.id && item.option === option
+                      ? "text-gray-500 font-semibold"
+                      : "text-gray-500"
+                  }
+                >
+                  {item.title + " (" + item.option + ") "}
                 </div>
               </div>
             ))}
@@ -309,6 +291,3 @@ function Detail() {
 }
 
 export default Detail;
-
-           
-
