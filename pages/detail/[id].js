@@ -33,7 +33,7 @@ function Detail() {
     (item) => item.id === product.id && item.option === option
   );
 
-  const [selectedImage, setSelectedImage] = useState([product.image, 0]);
+  const [selectedImage, setSelectedImage] = useState([product?.image, 0]);
 
   if (!product) {
     return (
