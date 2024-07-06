@@ -22,7 +22,7 @@ export default function Home() {
   const [searchedProducts, setSearchedProducts] = useState(products);
   const [searchValue, setSearchValue] = useState("");
   const [sortOrder, setSortOrder] = useState("");
-  const [categoryValue, setCategoryValue] = useState("All")
+  const [categoryValue, setCategoryValue] = useState("All");
 
   const handleSort = (order) => {
     const sortedData =
@@ -48,12 +48,12 @@ export default function Home() {
 
   const handleCategory = (value) => {
     setCategoryValue(value);
-    const categoryResults = value === "All" 
-      ? products 
-      : products.filter((item) => item.category === value);
+    const categoryResults =
+      value === "All"
+        ? products
+        : products.filter((item) => item.category === value);
     setSearchedProducts(categoryResults);
   };
-  
 
   if (searchedProducts.length === 0) {
     return (
@@ -83,14 +83,15 @@ export default function Home() {
                   value={searchValue}
                   onChange={(e) => setSearchValue(e.target.value)}
                   placeholder="Search..."
-                  className="pl-4 py-2 rounded-l w-64 outline-none text-gray-700"
+                  className="pl-4 py-2 rounded-l min-w-64  outline-none text-gray-700"
                 />
-                {searchedProducts.length < allProducts.length ? (
+                {searchedProducts.length < allProducts.length &&
+                searchValue !== "" ? (
                   <button
                     onClick={() => {
                       setSearchedProducts(allProducts), setSearchValue("");
                     }}
-                    className="button rounded-l-none"
+                    className="button rounded-l-none px-4"
                   >
                     <HiOutlineReply className="h-5 w-5  text-white" />
                   </button>
@@ -124,7 +125,7 @@ export default function Home() {
                       onClick={() => {
                         handleSort("descending"), setSortOrder("descending");
                       }}
-                      className="button bg-indigo-500 text-white"
+                      className="button bg-indigo-500 text-white px-4"
                     >
                       <HiSortAscending className="h-6 w-6" />
                     </button>
@@ -132,16 +133,16 @@ export default function Home() {
                 )}
               </div>
               <select
-    value={categoryValue}
-    onChange={(e) => handleCategory(e.target.value)}
-    className="styleRow md:mt-0 md:w-44 bg-amber-500 p-2 rounded-md text-white border-2 border-amber-500 outline-white"
-  >
-    <option value="All">All Categories</option>
-    <option value="Gifts">Gifts</option>
-    <option value="Home Decor">Home Decor</option>
-    <option value="Health & Beauty">Health & Beauty</option>
-    <option value="Skin Care">Skin Care</option>
-  </select>
+                value={categoryValue}
+                onChange={(e) => handleCategory(e.target.value)}
+                className="styleRow md:w-44 bg-amber-500 p-2 rounded-md text-white border-2 border-amber-500 outline-white"
+              >
+                <option value="All">All Categories</option>
+                <option value="Gifts">Gifts</option>
+                <option value="Home Decor">Home Decor</option>
+                <option value="Health & Beauty">Health & Beauty</option>
+                <option value="Skin Care">Skin Care</option>
+              </select>
             </div>
           </div>
 

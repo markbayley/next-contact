@@ -33,6 +33,10 @@ function Detail() {
     (item) => item.id === product.id && item.option === option
   );
 
+  const similarProducts = products.filter(
+    (item) => item.category === product.category && item.id !== product.id
+  );
+
   const [selectedImage, setSelectedImage] = useState([product?.image, 0]);
 
   if (!product) {
@@ -211,7 +215,7 @@ function Detail() {
                     onClick={() => addToCart(product)}
                     className={
                       isAdded
-                        ? "flex button bg-gray-200 3xl:text-2xl"
+                        ? "flex button bg-gray-200 3xl:text-xl"
                         : "flex button 3xl:text-xl text-white"
                     }
                   >
@@ -222,16 +226,57 @@ function Detail() {
             </div>
           </div>
         </div>
+
+        <div className="flex w-full border-t p-4 text-xl">
+          <h2 className="">Similar Items</h2>
+        </div>
+
+        <div className="flex w-full px-2 ">
+          {similarProducts.map((item) => (
+            <div key={item.id + item.option} className="grid px-2 pb-4">
+              <div
+                onClick={() => {
+                  setOption(item.option), setSelectedImage([item.image, 0]);
+                }}
+                className={
+                  item.id === product.id && item.option === option
+                    ? "relative max-w-80 aspect-square hover:opacity-95 ring-2 ring-amber-500 rounded-md"
+                    : "relative max-w-80 aspect-square hover:opacity-95  "
+                }
+              >
+                <Link href={`/detail/${item.id}`}>
+                  <Image
+                    src={item.image}
+                    alt="fav-image"
+                    fill
+                    style={{ objectFit: "cover" }}
+                    className="rounded-md animate-fade active:scale-95 transition duration-150 ease-out"
+                  />
+                </Link>
+              </div>
+
+              <div
+                className={
+                  item.id === product.id && item.option === option
+                    ? " text-md 3xl:text-lg text-gray-700"
+                    : " text-md 3xl:text-lg text-gray-500"
+                }
+              >
+                {item.title + " (" + item.option + ") "}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Right */}
       <div className="hidden lg:grid w-full bg-gray-100 shadow rounded-md max-w-[20vw]">
         {cart.length > 0 ? (
           <div>
-            {/* <div className="flex items-center p-2 font-semibold text-gray-500 text-lg 3xl:text-2xl">
-                <HiShoppingCart />
-                <h4>Cart</h4>
-              </div> */}
+            <div className="flex items-center p-2 font-semibold text-gray-500 text-lg 3xl:text-2xl">
+              <HiShoppingCart />
+              <h4>Cart</h4>
+            </div>
 
             <Link className="" href={`/cart`}>
               <button className="button m-2 3xl:text-xl flex items-center text-white">
@@ -275,11 +320,6 @@ function Detail() {
                 </div>
               </div>
             ))}
-            <Link className="" href={`/cart`}>
-              <button className="button m-2 flex items-center text-white">
-                View Cart <HiArrowRight className="h-6 w-6 px-1" />
-              </button>
-            </Link>
           </div>
         ) : (
           <div className="flex flex-col">
