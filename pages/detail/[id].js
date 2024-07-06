@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useCart } from "../../context/CartContext.js";
 import {
   HiArrowRight,
@@ -49,9 +49,9 @@ function Detail() {
   return (
     <div className="flex ">
       {/* Mid */}
-      <div className="flex flex-col  xl:items-end xl:mx-2 items-center 2xl:gap-2 w-full border-2 bg-white shadow-sm rounded-md">
+      <div className="flex flex-col  xl:items-end  items-center 2xl:gap-2 w-full border-2 bg-white shadow-sm rounded-md">
         {/* Mid-heading */}
-        <div className="flex xl:hidden styleRow p-2 lg:px-4 border-b">
+        <div className="flex lg:hidden styleRow p-1 lg:px-4 border-b">
           <h2 className="text-xl text-gray-500 ">
             <Link href="/" className="hover:text-gray-400">
               Shop{" "}
@@ -69,41 +69,43 @@ function Detail() {
         </div>
 
         {/* Mid-Main */}
-        <div className="md:px-2 md:py-6 lg:p-4 ">
+        <div className="px-1 md:py-6 lg:p-4 ">
           <div className="grid md:grid-cols-2 gap-4 animate-fade ">
             {/* left side */}
             <div>
-            <div className="relative w-full xl:w-full xl:max-h-[70vh] aspect-square">
-        <Image
-          src={selectedImage[0]}
-          alt="detail-image"
-          fill
-          style={{ objectFit: "cover" }}
-          className="rounded-md"
-        />
-      </div>
+              <div className="relative w-full xl:w-full xl:max-h-[70vh] aspect-square">
+                <Image
+                  src={selectedImage[0]}
+                  alt="detail-image"
+                  fill
+                  style={{ objectFit: "cover" }}
+                  className="rounded-md"
+                />
+              </div>
 
-      <div className="w-full bg-white shadow-sm rounded-md lg:pt-0 flex justify-evenly lg:justify-between animate-fade">
-        <div className="grid grid-cols-5 gap-4 pt-4 w-full">
-          {[...Array(5)].map((_, i) => (
-            <div
-              key={i}
-              onClick={() => setSelectedImage([product.image, i])}
-              className={`${
-                i === selectedImage[1] ? "ring-2 ring-amber-500 rounded-md" : ""
-              } relative aspect-square hover:opacity-95 cursor-pointer active:scale-95 transition duration-200 ease-out`}
-            >
-              <Image
-                src={product.image}
-                alt="detail-image"
-                fill
-                style={{ objectFit: "cover" }}
-                className="rounded-md"
-              />
-            </div>
-          ))}
-        </div>
-      </div>
+              <div className="w-full bg-white shadow-sm rounded-md lg:pt-0 flex justify-evenly lg:justify-between animate-fade">
+                <div className="grid grid-cols-5 gap-4 pt-4 w-full">
+                  {[...Array(5)].map((_, i) => (
+                    <div
+                      key={i}
+                      onClick={() => setSelectedImage([product.image, i])}
+                      className={`${
+                        i === selectedImage[1]
+                          ? "ring-2 ring-amber-500 rounded-md"
+                          : ""
+                      } relative aspect-square hover:opacity-95 cursor-pointer active:scale-95 transition duration-200 ease-out`}
+                    >
+                      <Image
+                        src={product.image}
+                        alt="detail-image"
+                        fill
+                        style={{ objectFit: "cover" }}
+                        className="rounded-md"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
 
             {/* right-side */}
@@ -147,7 +149,7 @@ function Detail() {
                 >
                   Select an option
                 </h4>
-                <div className="flex gap-4 py-2 3xl:text-2xl">
+                <div className="flex gap-4 py-2 3xl:text-xl">
                   <button
                     value="Option A"
                     className={`button rounded-full border-2 ${
@@ -210,7 +212,7 @@ function Detail() {
                     className={
                       isAdded
                         ? "flex button bg-gray-200 3xl:text-2xl"
-                        : "flex button 3xl:text-2xl text-white"
+                        : "flex button 3xl:text-xl text-white"
                     }
                   >
                     {isAdded ? "Item In Cart" : "Add To Cart"}
@@ -232,7 +234,7 @@ function Detail() {
               </div> */}
 
             <Link className="" href={`/cart`}>
-              <button className="button m-2 flex items-center text-white">
+              <button className="button m-2 3xl:text-xl flex items-center text-white">
                 View Cart <HiArrowRight className="h-6 w-6 px-1" />
               </button>
             </Link>
@@ -242,7 +244,9 @@ function Detail() {
                 className="grid w-full px-2 pb-4"
               >
                 <div
-                  onClick={() => setOption(item.option)}
+                  onClick={() => {
+                    setOption(item.option), setSelectedImage([item.image, 0]);
+                  }}
                   className={
                     item.id === product.id && item.option === option
                       ? "relative aspect-square hover:opacity-95 ring-2 ring-amber-500 rounded-md"
@@ -263,8 +267,8 @@ function Detail() {
                 <div
                   className={
                     item.id === product.id && item.option === option
-                      ? "text-gray-500 font-semibold"
-                      : "text-gray-500"
+                      ? " text-md 3xl:text-2xl text-gray-700"
+                      : " text-md 3xl:text-2xl text-gray-500"
                   }
                 >
                   {item.title + " (" + item.option + ") "}

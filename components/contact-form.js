@@ -1,5 +1,9 @@
 import { useForm, ValidationError } from "@formspree/react";
-import { FaInstagram, FaSquareFacebook, FaSquareTwitter } from "react-icons/fa6";
+import {
+  FaInstagram,
+  FaSquareFacebook,
+  FaSquareTwitter,
+} from "react-icons/fa6";
 
 export default function ContactForm() {
   const [state, handleSubmit] = useForm(process.env.NEXT_PUBLIC_FORM);
@@ -14,7 +18,14 @@ export default function ContactForm() {
         onSubmit={handleSubmit}
         className="flex flex-col gap-3  text-gray-500 min-w-80 lg:min-w-[40vw] px-2"
       >
-        <div className="flex items-center justify-between"><h2 className=" text-2xl"> CONTACT US</h2><div className="flex gap-2"><FaSquareTwitter className="h-6 w-6"/><FaInstagram className="h-6 w-6"/> <FaSquareFacebook className="h-6 w-6"/>  </div></div>
+        <div className="flex items-center justify-between">
+          <h2 className=" text-2xl"> CONTACT US</h2>
+          <div className="flex gap-2">
+            <FaSquareTwitter className="h-6 w-6" />
+            <FaInstagram className="h-6 w-6" />{" "}
+            <FaSquareFacebook className="h-6 w-6" />{" "}
+          </div>
+        </div>
         <label htmlFor="email" className="mb-0">
           Name
         </label>

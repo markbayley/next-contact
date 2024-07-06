@@ -43,7 +43,7 @@ function Header() {
     <div className="sticky top-0 grid grid-cols-3 items-center p-3 z-50 bg-gray-100 shadow-sm">
       <div className="flex gap-4">
         <Link href="/">
-          <div className="relative h-7 w-7 md:pl-3">
+          <div className="relative h-7 w-7 md:pl-3 active:scale-95 transition duration-150 ease-out">
             {" "}
             <Image
               src="/favicon.ico"
@@ -54,21 +54,21 @@ function Header() {
           </div>
         </Link>
         <ul className="flex gap-4 pt-[2px]">
-          <li className="hidden md:flex hover:text-gray-500">
+          <li className="hidden md:flex text-gray-600 hover:text-gray-500 active:scale-95 transition duration-150 ease-out">
             <Link className="flex" href="/">
-              <HiOutlineHome className="h-6 w-6 text-gray-600" />
+              <HiOutlineHome className="h-6 w-6 " />
               <span className="hidden md:flex">Home</span>{" "}
             </Link>
           </li>
-          <li className="hover:text-gray-500">
+          <li className="text-gray-600 hover:text-gray-500 active:scale-95 transition duration-150 ease-out">
             <Link className="flex" href="/about">
-              <HiOutlineInformationCircle className="h-6 w-6 text-gray-600" />
+              <HiOutlineInformationCircle className="h-6 w-6 " />
               <span className="hidden md:flex">About</span>{" "}
             </Link>
           </li>
-          <li className="hover:text-gray-500">
+          <li className="text-gray-600 hover:text-gray-500 active:scale-95 transition duration-150 ease-out">
             <Link className="flex" href="/contact">
-              <HiOutlineMail className="h-6 w-6 text-gray-600" />
+              <HiOutlineMail className="h-6 w-6 " />
               <span className="hidden md:flex">Contact</span>{" "}
             </Link>
           </li>
@@ -89,7 +89,7 @@ function Header() {
             >
               {favorites.length}
             </span>
-            <HiOutlineHeart className="h-6 w-6 text-gray-600 active:scale-95 transition duration-150 ease-out hover:text-gray-500" />
+            <HiOutlineHeart className="h-6 w-6 text-gray-600 active:scale-125 transition duration-500 ease-out hover:text-gray-500" />
           </Link>
         </div>
         <div className="relative">
@@ -104,7 +104,7 @@ function Header() {
             >
               {cart.length}
             </span>
-            <HiOutlineShoppingCart className="h-6 w-6 text-gray-600 active:scale-95 transition duration-150 ease-out hover:text-gray-500" />
+            <HiOutlineShoppingCart className="h-6 w-6 text-gray-600 active:scale-125 transition duration-500 ease-out hover:text-gray-500" />
           </Link>
         </div>
         <div>

@@ -37,7 +37,7 @@ const Favorites = () => {
             >
               Detail
             </span>{" "}
-            / <strong>Favorites</strong>
+            / <strong>Favs</strong>
           </h2>
           <h2 className="flex gap-2">
             <Link href="/cart">
@@ -67,7 +67,7 @@ const Favorites = () => {
                       alt={product.title}
                       fill
                       style={{ objectFit: "cover" }}
-                      className="rounded-l-md"
+                      className="rounded-l-md active:scale-95 transition duration-150 ease-out"
                     />
                   </Link>
                   <button
@@ -79,18 +79,30 @@ const Favorites = () => {
                 </div>
                 <div className="flex flex-col justify-between p-2">
                   <h2 className="font-semibold">
-                    {product.title + " (" + product.option + ") "}
+                    {product.title + " (" + (product.option || "No Option") + ") "}
                   </h2>
                   <h3>{product?.description?.substring(0, 70)}...</h3>
+               
+                  <div className="flex w-full justify-end md:justify-start items-center">
                   <h5 className="pt-2 md:pb-2 text-md">${product.price}</h5>
+                {/* <HiHeart className="h-7 w-7 z-20 text-red-500" /> */}
+              </div>
                 </div>
-                <div className="styleCol justify-between p-2">
-                  <div className="styleRow">
-                  <div></div>
-                    <HiHeart className="h-7 w-7 z-20 text-red-500" />
+                <div className="flex items-center md:flex-col w-full justify-between md:items-end p-2">
+                <span className="text-red-600 md:text-right">
+                    {product.category === "Health & Beauty"
+                      ? "Save 10%"
+                      : product.category === "Home Decor"
+                      ? "Save 15%"
+                      : product.category === "Skin Care"
+                      ? "Save 19%"
+                      : "Save 24%"}
+                     <div className="font-semibold text-md 4xl:text-lg text-gray-500">
+                    { product.category}
                   </div>
-                  <div className="styleRow">
-                  <div></div>
+                  </span>
+                  <div className="">
+                
                     {product.option && product.option !== "" ? (
                       isAdded ? (
                        
