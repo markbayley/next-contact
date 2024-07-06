@@ -30,11 +30,11 @@ function Detail() {
   );
 
   const isFavorited = favorites.some(
-    (item) => item.id === product.id && item.option === option
+    (item) => item.id === product.id
   );
 
   const similarProducts = products.filter(
-    (item) => item.category === product.category && item.id !== product.id
+    (item) => item?.category === product?.category && item.id !== product.id
   );
 
   const [selectedImage, setSelectedImage] = useState([product?.image, 0]);
@@ -121,7 +121,7 @@ function Detail() {
                       {product.title} - Main Title Here
                     </h1>
                     <h2 className="font-semibold text-md 3xl:text-2xl text-gray-500">
-                      {product.category}
+                      {product?.category}
                     </h2>
                   </div>
                   <button
@@ -232,7 +232,7 @@ function Detail() {
         </div>
 
         <div className="flex w-full px-2 ">
-          {similarProducts.map((item) => (
+          {similarProducts?.map((item) => (
             <div key={item.id + item.option} className="grid px-2 pb-4">
               <div
                 onClick={() => {
