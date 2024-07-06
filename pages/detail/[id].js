@@ -112,7 +112,7 @@ function Detail() {
               </div>
             </div>
 
-            {/* right-side */}
+        
             <div className="p-2 md:p-0 flex flex-col justify-between 3xl:px-6">
               <div className="">
                 <div className="flex justify-between items-center">
