@@ -23,15 +23,16 @@ function Detail() {
     updateOption,
     setOption,
     products,
+    removeFromFavorites
   } = useCart();
   const product = products.find((item) => item.id === parseInt(id));
   const isAdded = cart.some(
     (item) => item.id === product.id && item.option === option
   );
 
-  const isFavorited = favorites.some(
-    (item) => item.id === product.id
-  );
+  const isFavorited = favorites.some((item) => item.id === product.id);
+
+  const isOption = favorites.some((item) => item.option === option);
 
   const similarProducts = products.filter(
     (item) => item?.category === product?.category && item.id !== product.id
@@ -49,6 +50,8 @@ function Detail() {
       </div>
     );
   }
+
+  console.log("productID", product);
 
   return (
     <div className="flex ">
@@ -112,8 +115,7 @@ function Detail() {
               </div>
             </div>
 
-        
-            <div className="p-2 md:p-0 flex flex-col justify-between 3xl:px-6">
+            <div className="p-1 md:p-0 flex flex-col justify-between 3xl:px-6">
               <div className="">
                 <div className="flex justify-between items-center">
                   <div>
@@ -124,16 +126,22 @@ function Detail() {
                       {product?.category}
                     </h2>
                   </div>
-                  <button
-                    className="hover:bg-gray-200 rounded-full p-2 active:scale-95 transition duration-200 ease-out"
-                    onClick={(event) => handleFavoriteClick(event, product)}
-                  >
-                    {isFavorited ? (
-                      <HiHeart className="h-8 w-8 3xl:h-10 3xl:w-10 text-red-500 " />
-                    ) : (
-                      <HiOutlineHeart className="h-8 w-8 3xl:h-10 3xl:w-10 text-red-500 " />
-                    )}
-                  </button>
+                  {option === "" ? (
+                    <button className="hover:bg-gray-200 rounded-full p-2 active:scale-95 transition duration-200 ease-out">
+                      <HiOutlineHeart className="h-8 w-8 3xl:h-10 3xl:w-10 text-gray-500 " />
+                    </button>
+                  ) : (
+                    <button
+                      className="hover:bg-gray-200 rounded-full p-2 active:scale-95 transition duration-200 ease-out"
+                     
+                    >
+                      {isFavorited ? (
+                        <HiHeart   onClick={() => removeFromFavorites(product)} className="h-8 w-8 3xl:h-10 3xl:w-10 text-red-500 " />
+                      ) : (
+                        <HiOutlineHeart  onClick={(event) => handleFavoriteClick(event, product)} className="h-8 w-8 3xl:h-10 3xl:w-10 text-red-500 " />
+                      )}
+                    </button>
+                  )}
                 </div>
               </div>
 
@@ -193,23 +201,28 @@ function Detail() {
               <div className="flex justify-between items-center">
                 <div>
                   <p className="text-md 3xl:text-2xl text-gray-500 font-semibold">
-                    {product.quantity > 0 ? "In Stock" : "Preorder"}
+                    {product.quantity > 0 ? "In Stock" : "In Stock"}
                   </p>
                   <h2 className="flex text-xl 3xl:text-3xl">
                     ${product.price}
                   </h2>
                 </div>
-                <div className="flex gap-2">
-                  {/* <button
-                    onClick={(event) => handleFavoriteClick(event, product)}
-                    className={
-                      isFavorited
-                        ? "flex button bg-gray-200 3xl:text-2xl"
-                        : "flex button 3xl:text-2xl text-white"
-                    }
-                  >
-                    {isFavorited ? "Item Favorited" : "Add Favorite"}
-                  </button> */}
+                <div className="flex gap-1">
+
+                  {isFavorited && isOption ? (
+                    <button className="flex button bg-gray-200 3xl:text-2xl">
+                      Item Favorited
+                    </button>
+                  ) :   (
+                    <button
+                      onClick={(event) => handleFavoriteClick(event, product)}
+                      className="flex button 3xl:text-2xl text-white"
+                    >
+                      { isFavorited ? "Update Favorite" : "Add Favorite"}
+                    </button>
+             
+
+                  )}
 
                   <button
                     onClick={() => addToCart(product)}

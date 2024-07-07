@@ -11,12 +11,11 @@ export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [option, setOption] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState(false);
 
   const addToCart = (product) => {
     if (option === "") {
-      setError("Select an option");
-      console.log("1");
+      setError(true);
       return;
     }
 
@@ -68,49 +67,39 @@ export const CartProvider = ({ children }) => {
     setOption(newOption);
   };
 
-  const updateFavorite = (product, isFavorited) => {
+  const updateFavorite = (product) => {
     setFavorites((prevFavorites) => {
-      const existingFavorite = prevFavorites.find(
-        (item) => item.id === product.id && item.option === option
+      const existingFavoriteIndex = prevFavorites.findIndex(
+        (item) => item.id === product.id && item.option !== option
       );
-
-      if (isFavorited && !existingFavorite) {
+  
+      if (existingFavoriteIndex === -1) {
+        // If no existing favorite is found, add the product with the current option
         return [...prevFavorites, { ...product, option: option }];
-      } else if (!isFavorited) {
-        return prevFavorites.filter(
-          (item) => item.id !== product.id || item.option !== option
-        );
+      } else {
+        // If an existing favorite with a different option is found, update its option
+        const updatedFavorites = [...prevFavorites];
+        updatedFavorites[existingFavoriteIndex] = {
+          ...updatedFavorites[existingFavoriteIndex],
+          option: option
+        };
+        return updatedFavorites;
       }
-      return prevFavorites;
     });
   };
+  
 
   const handleFavoriteClick = (event, product) => {
     event.preventDefault();
     event.stopPropagation();
 
-    const isFavorited = favorites.some(
-      (item) => item.id === product.id && item.option === option
-    );
-
-    const favoriteWithoutOption = favorites.find(
-      (fav) => fav.id === product.id && fav.option === ""
-    );
-
-    if (favoriteWithoutOption) {
-      setFavorites((prevFavorites) =>
-        prevFavorites.filter((item) => item.option !== "")
-      );
-      console.log("favoriteWithoutOption", favoriteWithoutOption);
-    }
-
-    updateFavorite(product, !isFavorited);
+    updateFavorite(product);
   };
 
   const removeFromFavorites = (product) => {
     setFavorites((prevCart) =>
       prevCart.filter(
-        (item) => item.id !== product.id || item.option !== product.option
+        (item) => item.id !== product.id 
       )
     );
   };

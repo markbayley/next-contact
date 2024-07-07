@@ -26,7 +26,7 @@ function Header() {
 
       return () => clearTimeout(timeoutIdFav);
     }
-  }, [favorites.length]);
+  }, [favorites.length, favorites]);
 
   useEffect(() => {
     if (cart.length > 0) {

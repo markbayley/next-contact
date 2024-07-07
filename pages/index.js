@@ -18,7 +18,7 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
   const { favorites, handleFavoriteClick, setOption, products } = useCart();
 
-  const [allProducts, setAllProducts] = useState(products);
+ // const [allProducts, setAllProducts] = useState(products);
   const [searchedProducts, setSearchedProducts] = useState(products);
   const [searchValue, setSearchValue] = useState("");
   const [sortOrder, setSortOrder] = useState("");
@@ -33,7 +33,7 @@ export default function Home() {
   };
 
   const handleSearch = () => {
-    const searchResults = allProducts.filter(
+    const searchResults = products.filter(
       (item) =>
         item.title.toLowerCase().includes(searchValue.toLowerCase()) ||
         item.category.toLowerCase().includes(searchValue.toLowerCase()) ||
@@ -62,7 +62,7 @@ export default function Home() {
 
         <div
           onClick={() => {
-            setSearchedProducts(allProducts), setSearchValue("");
+            setSearchedProducts(products), setSearchValue("");
           }}
           className="button mt-4"
         >
@@ -85,11 +85,11 @@ export default function Home() {
                   placeholder="Search..."
                   className="pl-4 py-2 rounded-l min-w-64  outline-none text-gray-700"
                 />
-                {searchedProducts.length < allProducts.length &&
+                {searchedProducts.length < products.length &&
                 searchValue !== "" ? (
                   <button
                     onClick={() => {
-                      setSearchedProducts(allProducts), setSearchValue("");
+                      setSearchedProducts(products), setSearchValue("");
                     }}
                     className="button rounded-l-none px-4"
                   >
@@ -155,7 +155,7 @@ export default function Home() {
                 <div
                   className="shadow-sm bg-gray-100 rounded-md "
                   key={item.id}
-                  onClick={() => setOption("")}
+                 // onClick={() => setOption("")}
                 >
                   <Link href={`/detail/${item.id}`}>
                     <div className="styleCenter border relative w-full md:w-72 h-72 text-white text-lg hover:opacity-90 ">
@@ -165,12 +165,13 @@ export default function Home() {
                       <div className="absolute top-2 right-2 z-20">
                         <button
                           className="hover:bg-gray-200 rounded-full p-2 active:scale-95 transition duration-200 ease-out"
-                          onClick={(event) => handleFavoriteClick(event, item)}
+                          //onClick={(event) => handleFavoriteClick(event, item)}
                         >
                           {isFavorited ? (
                             <HiHeart className="h-8 w-8 text-red-500" />
                           ) : (
-                            <HiOutlineHeart className="h-8 w-8 text-red-500" />
+                            //<HiOutlineHeart className="h-8 w-8 text-red-500" />
+                            ""
                           )}
                         </button>
                       </div>
