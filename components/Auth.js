@@ -1,10 +1,14 @@
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useState } from "react";
-import { HiOutlineUserCircle } from "react-icons/hi";
+import { HiOutlineUserCircle, HiUserCircle } from "react-icons/hi";
 import { useForm, ValidationError } from "@formspree/react";
+import { useRouter } from "next/router";
 
 export default function Auth() {
   const { data: session } = useSession();
+
+  const router = useRouter() 
+  const route = router.asPath
 
   const [showProfile, setShowProfile] = useState(false);
   const [state, handleSubmit] = useForm(process.env.NEXT_PUBLIC_FORM);
@@ -17,7 +21,9 @@ export default function Auth() {
           className="rounded-full  active:scale-95 transition duration-150 font-semibold "
         >
           <div>
-            <HiOutlineUserCircle className="h-7 w-7 text-gray-600" />
+            { route === "/profile" ?
+            <HiUserCircle className="h-7 w-7 4xl:h-8 4xl:w-8  text-gray-600" />
+          :  <HiOutlineUserCircle className="h-7 w-7 4xl:h-8 4xl:w-8  text-gray-600" />}
           </div>
         </button>
 
@@ -53,7 +59,7 @@ export default function Auth() {
               <label htmlFor="message" className="">
                 Upload Photo
               </label>
-              <textarea
+              <dropzone
                 id="message"
                 name="message"
                 rows="5"

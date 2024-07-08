@@ -27,7 +27,6 @@ function Detail() {
     setOption,
     products,
     removeFromFavorites,
-    updateQuantity
   } = useCart();
   const product = products.find((item) => item.id === parseInt(id));
   const isAdded = cart.some(
@@ -54,10 +53,6 @@ function Detail() {
       </div>
     );
   }
-
-  console.log("productID", product);
-
-  console.log("isFavorited", isFavorited);
 
   return (
     <div className="flex ">

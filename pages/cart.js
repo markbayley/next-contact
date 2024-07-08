@@ -83,9 +83,9 @@ const Cart = () => {
 
               {/* rightSide */}
 
-              <div className="flex flex-col justify-between p-2  ">
+              <div className="flex flex-col justify-between px-2  ">
                 <div className="styelCol md:styleRow">
-                  <h2 className="font-semibold">
+                  <h2 className="font-semibold py-2">
                     {product.title}{" "}<span className="whitespace-nowrap">{" (" + product.option + ") "}</span>
                   </h2>
                 

@@ -1,21 +1,30 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import {
+  HiHeart,
+  HiHome,
+  HiInformationCircle,
+  HiMail,
   HiOutlineHeart,
   HiOutlineHome,
   HiOutlineInformationCircle,
   HiOutlineMail,
   HiOutlineShoppingCart,
+  HiShoppingCart,
 } from "react-icons/hi";
 import Auth from "./Auth";
 import { useCart } from "../context/CartContext";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 function Header() {
   const { cart, favorites } = useCart();
 
   const [flashFav, setFlashFav] = useState(false);
   const [flashCart, setFlashCart] = useState(false);
+
+  const router = useRouter() 
+  const route = router.asPath
 
   useEffect(() => {
     if (favorites.length > 0) {
@@ -56,19 +65,24 @@ function Header() {
         <ul className="flex gap-4 items-center">
           <li className="hidden md:inline-flex text-gray-600 hover:text-gray-500 active:scale-95 transition duration-150 ease-out">
             <Link className="flex items-center" href="/">
-              <HiOutlineHome className="h-6 w-6 4xl:h-8 4xl:w-8 " />
-              <span className="hidden md:flex">Home</span>{" "}
+            { route === "/" ? <HiHome className="h-6 w-6 4xl:h-8 4xl:w-8 " />:
+
+              <HiOutlineHome className="h-6 w-6 4xl:h-8 4xl:w-8 " />}
+              <span className="hidden md:flex">Shop</span>{" "}
             </Link>
           </li>
           <li className="text-gray-600 hover:text-gray-500 active:scale-95 transition duration-150 ease-out">
             <Link className="flex items-center" href="/about">
-              <HiOutlineInformationCircle className="h-6 w-6 4xl:h-8 4xl:w-8  " />
+            { route === "/about" ?            <HiInformationCircle className="h-6 w-6 4xl:h-8 4xl:w-8  " />
+           :   <HiOutlineInformationCircle className="h-6 w-6 4xl:h-8 4xl:w-8  " />}
               <span className="hidden md:flex">About</span>{" "}
             </Link>
           </li>
           <li className="text-gray-600 hover:text-gray-500 active:scale-95 transition duration-150 ease-out">
             <Link className="flex items-center" href="/contact">
-              <HiOutlineMail className="h-6 w-6 4xl:h-8 4xl:w-8 " />
+            { route === "/contact" ?
+             <HiMail className="h-6 w-6 4xl:h-8 4xl:w-8 " /> :
+              <HiOutlineMail className="h-6 w-6 4xl:h-8 4xl:w-8 " />}
               <span className="hidden md:flex">Contact</span>{" "}
             </Link>
           </li>
@@ -89,8 +103,10 @@ function Header() {
             >
               {favorites.length}
             </span>
-            <HiOutlineHeart className="h-6 w-6 4xl:h-8 4xl:w-8   text-gray-600 active:scale-125 transition duration-500 ease-out hover:text-gray-500" />
-          </Link>
+            { route === "/favorites" ? <HiHeart className="h-6 w-6 4xl:h-8 4xl:w-8   text-gray-600 active:scale-125 transition duration-500 ease-out hover:text-gray-500" />
+           : <HiOutlineHeart className="h-6 w-6 4xl:h-8 4xl:w-8   text-gray-600 active:scale-125 transition duration-500 ease-out hover:text-gray-500" />}
+         
+            </Link>
         </div>
         <div className="relative">
           <Link href="/cart">
@@ -104,8 +120,11 @@ function Header() {
             >
               {cart.length}
             </span>
-            <HiOutlineShoppingCart className="h-6 w-6 4xl:h-8 4xl:w-8   text-gray-600 active:scale-125 transition duration-500 ease-out hover:text-gray-500" />
-          </Link>
+            { route === "/cart" ?
+            <HiShoppingCart className="h-6 w-6 4xl:h-8 4xl:w-8   text-gray-600 active:scale-125 transition duration-500 ease-out hover:text-gray-500" />
+            :<HiOutlineShoppingCart className="h-6 w-6 4xl:h-8 4xl:w-8   text-gray-600 active:scale-125 transition duration-500 ease-out hover:text-gray-500" />
+            }
+            </Link>
         </div>
         <div>
           {" "}
