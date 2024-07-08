@@ -7,6 +7,9 @@ import {
   HiArrowRight,
   HiHeart,
   HiOutlineHeart,
+  HiOutlineMinus,
+  HiOutlinePlus,
+  HiOutlineShoppingCart,
   HiShoppingCart,
 } from "react-icons/hi";
 
@@ -24,6 +27,7 @@ function Detail() {
     setOption,
     products,
     removeFromFavorites,
+    updateQuantity
   } = useCart();
   const product = products.find((item) => item.id === parseInt(id));
   const isAdded = cart.some(
@@ -60,8 +64,8 @@ function Detail() {
       {/* Mid */}
       <div className="flex flex-col  xl:items-end  items-center 2xl:gap-2 w-full border-2 bg-white shadow-sm rounded-md">
         {/* Mid-heading */}
-        <div className="flex lg:hidden styleRow p-1 lg:px-4 border-b">
-          <h2 className="text-xl text-gray-500 ">
+        <div className="flex lg:hidden styleRow p-1 lg:px-4 border-b  3xl:text-xl 4xl:text-2xl">
+          <h2 className=" text-gray-500 ">
             <Link href="/" className="hover:text-gray-400">
               Shop{" "}
             </Link>{" "}
@@ -69,9 +73,10 @@ function Detail() {
           </h2>
           <h2 className="flex xl:gap-2">
             <Link href="/cart">
-              <div className="flex items-center button text-white">
+              <div className="flex items-center button rounded-full px-5 text-white  3xl:text-xl 4xl:text-2xl">
+              <HiShoppingCart className="h-4 w-4 ml-1" />
                 View Cart
-                <HiArrowRight className="h-4 w-4 ml-1" />
+               
               </div>
             </Link>
           </h2>
@@ -117,7 +122,7 @@ function Detail() {
               </div>
             </div>
 
-            <div className="p-1 md:p-0 flex flex-col justify-between 3xl:px-6">
+            <div className="p-1 md:p-0 flex flex-col justify-between 3xl:px-6 max-h-[1000px]">
               <div className="">
                 <div className="flex justify-between items-center">
                   <div>
@@ -130,21 +135,21 @@ function Detail() {
                   </div>
                   {option === "" ? (
                     <button className="hover:bg-gray-200 rounded-full p-2 active:scale-95 transition duration-200 ease-out">
-                      <HiOutlineHeart className="h-8 w-8 3xl:h-10 3xl:w-10 text-gray-500 " />
+                      <HiOutlineHeart className="h-8 w-8 3xl:h-10 3xl:w-10 4xl:h-12 4xl:w-12 text-gray-500 " />
                     </button>
                   ) : (
                     <button className="hover:bg-gray-200 rounded-full p-2 active:scale-95 transition duration-200 ease-out">
                       {isFavorited ? (
                         <HiHeart
                           onClick={() => removeFromFavorites(product)}
-                          className="h-8 w-8 3xl:h-10 3xl:w-10 text-red-500 "
+                          className="h-8 w-8 3xl:h-10 3xl:w-10 4xl:h-12 4xl:w-12 text-red-500 "
                         />
                       ) : (
                         <HiOutlineHeart
                           onClick={(event) =>
                             handleFavoriteClick(event, product)
                           }
-                          className="h-8 w-8 3xl:h-10 3xl:w-10 text-red-500 "
+                          className="h-8 w-8 3xl:h-10 3xl:w-10 4xl:h-12 4xl:w-12 text-red-500 "
                         />
                       )}
                     </button>
@@ -153,12 +158,12 @@ function Detail() {
               </div>
 
               <div>
-                <p className="py-2 xl:text-xl 2xl:text-2xl 3xl:text-3xl 3xl:leading-10">
+                <p className="py-2 xl:text-xl 2xl:text-2xl 3xl:text-3xl 3xl:leading-10 4xl:text-4xl">
                   {product.description}
                 </p>
               </div>
 
-              <div>
+              <div className="">
                 <h4
                   className={
                     error !== ""
@@ -168,10 +173,10 @@ function Detail() {
                 >
                   Select an option
                 </h4>
-                <div className="flex gap-4 py-2 3xl:text-xl">
+                <div className="flex gap-4 py-2 3xl:text-xl 4xl:text-2xl">
                   <button
                     value="Option A"
-                    className={`button rounded-full border-2 ${
+                    className={`button rounded-full border-2 4xl:py-3 ${
                       option === "Option A"
                         ? "bg-indigo-500 text-white"
                         : "bg-white"
@@ -182,7 +187,7 @@ function Detail() {
                   </button>
                   <button
                     value="Option B"
-                    className={`button rounded-full border-2 ${
+                    className={`button rounded-full border-2 4xl:py-3 ${
                       option === "Option B"
                         ? "bg-indigo-500 text-white"
                         : "bg-white"
@@ -193,7 +198,7 @@ function Detail() {
                   </button>
                   <button
                     value="Option C"
-                    className={`button rounded-full border-2 ${
+                    className={`button rounded-full border-2 4xl:py-3 ${
                       option === "Option C"
                         ? "bg-indigo-500 text-white"
                         : "bg-white"
@@ -204,6 +209,8 @@ function Detail() {
                   </button>
                 </div>
               </div>
+
+          
 
               <div className="flex justify-between items-end py-2 md:pb-0">
                 <div>
@@ -216,13 +223,13 @@ function Detail() {
                 </div>
                 <div className="flex gap-1">
                   {isFavorited && isOption ? (
-                    <button className="flex button bg-gray-200 3xl:text-xl">
+                    <button className="flex button bg-gray-200 3xl:text-xl 4xl:text-2xl 4xl:py-3">
                       {error ? "Select Option" : "Item Favorited"}
                     </button>
                   ) : (
                     <button
                       onClick={(event) => handleFavoriteClick(event, product)}
-                      className="flex button 3xl:text-xl text-white"
+                      className="flex button 3xl:text-xl 4xl:text-2xl text-white 4xl:py-3"
                     >
                       {isFavorited ? "Update Favorite" : "Add Favorite"}
                     </button>
@@ -232,8 +239,8 @@ function Detail() {
                     onClick={() => addToCart(product)}
                     className={
                       isAdded
-                        ? "flex button bg-gray-200 3xl:text-xl"
-                        : "flex button 3xl:text-xl text-white"
+                        ? "flex button bg-gray-200 3xl:text-xl 4xl:text-2xl 4xl:py-3"
+                        : "flex button 3xl:text-xl 4xl:text-2xl 4xl:py-3 text-white"
                     }
                   >
                     {isAdded ? "Item In Cart" : "Add To Cart"}
@@ -292,7 +299,7 @@ function Detail() {
           <div>
             <Link
               href="/cart"
-              className="flex items-center px-6 py-2 m-2 text-white text-md 3xl:text-xl border-2 bg-amber-500 rounded-full w-fit"
+              className="flex items-center px-6 py-2 m-2 text-white text-md 3xl:text-xl 4xl:text-2xl 4xl:py-3 border-2 bg-amber-500 rounded-full w-fit"
             >
               <HiShoppingCart />
               <h4>View Cart</h4>

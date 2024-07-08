@@ -30,10 +30,10 @@ const Cart = () => {
   console.log("cart", cart);
 
   return (
-    <div className="flex justify-center w-full pt-2">
+    <div className="flex justify-center w-full pt-2 text-md 4xl:text-2xl">
       <div className="max-w-[850px] animate-fade">
-        <div className="styleRow max-w-[850px] mb-2 px-2 lg:px-0">
-          <h2 className="text-lg text-gray-500 ">
+        <div className="styleRow max-w-[850px] mb-2 px-2 lg:px-0 text-md 3xl:text-xl 4xl:text-2xl">
+          <h2 className=" text-gray-500 ">
             <Link href="/" className="hover:text-gray-400">
               Shop{" "}
             </Link>
@@ -48,7 +48,7 @@ const Cart = () => {
           </h2>
           <h2 className="flex gap-2">
             <Link href="/cart">
-              <div className="flex items-center button rounded-full text-white">
+              <div className="flex items-center button rounded-full text-white text-md 3xl:text-xl 4xl:text-2xl px-4">
                 Checkout <HiArrowRight className="h-4 w-4 ml-1" />
               </div>
             </Link>
@@ -62,7 +62,7 @@ const Cart = () => {
             >
               {/* leftSide */}
               <div className="">
-                <div className="relative w-full h-40">
+                <div className="relative w-full h-40 4xl:h-60">
                   <Link href={`/detail/${product.id}`}>
                     <Image
                       src={product.image}
@@ -76,7 +76,7 @@ const Cart = () => {
                     onClick={() => removeFromCart(product)}
                     className="m-1"
                   >
-                    <HiOutlineX className="h-6 w-6 p-1 button rounded shadow-sm bg-gray-200" />
+                    <HiOutlineX className="h-6 w-6 4xl:h-8 4xl:w-8 p-1 button rounded shadow-sm bg-gray-200" />
                   </button>
                 </div>
               </div>
@@ -131,12 +131,12 @@ const Cart = () => {
                       : product.category === "Skin Care"
                       ? "Save 19%"
                       : "Save 24%"}
-                     <div className="font-semibold text-md 4xl:text-lg text-gray-500">
+                     <div className="font-semibold text-md 4xl:text-xl text-gray-500">
                     { product.category}
                   </div>
                   </span>
                   <Link href="/">
-                    <div className="button text-white">Buy Item</div>
+                    <div className="button font-normal text-md 4xl:text-2xl  text-white">Buy Item</div>
                   </Link>
                 </div>
               </div>
@@ -144,7 +144,7 @@ const Cart = () => {
           ))}
 
           <div className="grid grid-cols-3 bg-white rounded-md items-center p-4">
-            <div className=" font-semibold">
+            <div className=" font-semibold text-md text-md 4xl:text-2xl">
               {" "}
               <h2>Cart Total</h2>
             </div>
@@ -157,14 +157,14 @@ const Cart = () => {
                   </li>
                 ))}
               </ul> */}
-                <h3 className="md:pl-3 text-center">${getTotalPrice().toFixed(2)}</h3>
+                <h3 className="md:pl-3 text-center text-md 4xl:text-2xl">${getTotalPrice().toFixed(2)}</h3>
             </div>
 
-            <div className="flex items-center w-full justify-end font-semibold  ">
+            <div className="flex items-center w-full justify-end   ">
             
 
               <Link href="/cart">
-                <div className="flex items-center button text-white">
+                <div className="flex items-center button text-md 4xl:text-2xl  text-white">
                   Buy All 
                 </div>
               </Link>

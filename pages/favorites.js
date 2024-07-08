@@ -2,7 +2,7 @@ import React from "react";
 import { useCart } from "../context/CartContext";
 import Image from "next/image";
 import Link from "next/link";
-import { HiArrowRight, HiHeart, HiOutlineX } from "react-icons/hi";
+import { HiArrowRight, HiHeart, HiOutlineX, HiShoppingCart } from "react-icons/hi";
 import { useRouter } from "next/router";
 
 const Favorites = () => {
@@ -29,10 +29,10 @@ const Favorites = () => {
   }
 
   return (
-    <div className="flex justify-center w-full pt-2">
+    <div className="flex justify-center w-full pt-2 text-md 4xl:text-2xl">
       <div className="max-w-[850px] animate-fade">
-        <div className="styleRow max-w-[850px] mb-2 px-2 lg:px-0">
-          <h2 className="text-lg text-gray-500">
+        <div className="styleRow max-w-[850px] mb-2 px-2 lg:px-0 3xl:text-xl 4xl:text-2xl">
+          <h2 className=" text-gray-500">
             <Link href="/" className="hover:text-gray-400">
               Shop{" "}
             </Link>
@@ -47,8 +47,9 @@ const Favorites = () => {
           </h2>
           <h2 className="flex gap-2">
             <Link href="/cart">
-              <div className="flex items-center button rounded-full text-white">
-                View Cart <HiArrowRight className="h-4 w-4 ml-1" />
+              <div className="flex items-center button rounded-full text-white 3xl:text-xl 4xl:text-2xl px-4">
+              <HiShoppingCart className="h-4 w-4 ml-1" />
+                View Cart 
               </div>
             </Link>
           </h2>
@@ -66,7 +67,7 @@ const Favorites = () => {
                 className="w-full md:border-2 bg-gray-100 shadow-sm rounded-md grid md:grid-cols-2 p-1"
                 onClick={() => setOption(product.option)}
               >
-                <div className="relative w-full h-40">
+                <div className="relative w-full h-40 4xl:h-60">
                   <Link href={`/detail/${product.id}`}>
                     <Image
                       src={product.image}
@@ -80,7 +81,7 @@ const Favorites = () => {
                     onClick={() => removeFromFavorites(product)}
                     className="m-1"
                   >
-                    <HiOutlineX className="h-6 w-6 p-1 button rounded shadow-sm bg-gray-100" />
+                    <HiOutlineX className="h-6 w-6 4xl:h-8 4xl:w-8 p-1 button rounded shadow-sm bg-gray-100" />
                   </button>
                 </div>
                 <div className="flex flex-col justify-between p-2">
@@ -104,7 +105,7 @@ const Favorites = () => {
                         : product.category === "Skin Care"
                         ? "Save 19%"
                         : "Save 24%"}
-                      <div className="font-semibold text-md 4xl:text-lg text-gray-500">
+                      <div className="font-semibold text-md 4xl:text-xl text-gray-500">
                         {product.category}
                       </div>
                     </span>

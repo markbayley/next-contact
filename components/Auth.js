@@ -80,7 +80,7 @@ export default function Auth() {
   }
   return (
     <>
-      <button onClick={() => signIn()} className="button text-white px-4">
+      <button onClick={() => signIn()} className="button text-white px-4 3xl:text-xl 4xl:text-2xl 4xl:py-3">
         Login
       </button>
     </>
