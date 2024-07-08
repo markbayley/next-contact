@@ -23,14 +23,14 @@ function Detail() {
     updateOption,
     setOption,
     products,
-    removeFromFavorites
+    removeFromFavorites,
   } = useCart();
   const product = products.find((item) => item.id === parseInt(id));
   const isAdded = cart.some(
     (item) => item.id === product.id && item.option === option
   );
 
-  const isFavorited = favorites.some((item) => item.id === product.id);
+  const isFavorited = favorites.find((item) => item.id === product.id);
 
   const isOption = favorites.some((item) => item.option === option);
 
@@ -52,6 +52,8 @@ function Detail() {
   }
 
   console.log("productID", product);
+
+  console.log("isFavorited", isFavorited);
 
   return (
     <div className="flex ">
@@ -120,7 +122,7 @@ function Detail() {
                 <div className="flex justify-between items-center">
                   <div>
                     <h1 className="text-2xl 3xl:text-3xl">
-                      {product.title} - Main Title Here
+                      {product.title} 
                     </h1>
                     <h2 className="font-semibold text-md 3xl:text-2xl text-gray-500">
                       {product?.category}
@@ -131,14 +133,19 @@ function Detail() {
                       <HiOutlineHeart className="h-8 w-8 3xl:h-10 3xl:w-10 text-gray-500 " />
                     </button>
                   ) : (
-                    <button
-                      className="hover:bg-gray-200 rounded-full p-2 active:scale-95 transition duration-200 ease-out"
-                     
-                    >
+                    <button className="hover:bg-gray-200 rounded-full p-2 active:scale-95 transition duration-200 ease-out">
                       {isFavorited ? (
-                        <HiHeart   onClick={() => removeFromFavorites(product)} className="h-8 w-8 3xl:h-10 3xl:w-10 text-red-500 " />
+                        <HiHeart
+                          onClick={() => removeFromFavorites(product)}
+                          className="h-8 w-8 3xl:h-10 3xl:w-10 text-red-500 "
+                        />
                       ) : (
-                        <HiOutlineHeart  onClick={(event) => handleFavoriteClick(event, product)} className="h-8 w-8 3xl:h-10 3xl:w-10 text-red-500 " />
+                        <HiOutlineHeart
+                          onClick={(event) =>
+                            handleFavoriteClick(event, product)
+                          }
+                          className="h-8 w-8 3xl:h-10 3xl:w-10 text-red-500 "
+                        />
                       )}
                     </button>
                   )}
@@ -198,7 +205,7 @@ function Detail() {
                 </div>
               </div>
 
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-end py-2 md:pb-0">
                 <div>
                   <p className="text-md 3xl:text-2xl text-gray-500 font-semibold">
                     {product.quantity > 0 ? "In Stock" : "In Stock"}
@@ -208,20 +215,17 @@ function Detail() {
                   </h2>
                 </div>
                 <div className="flex gap-1">
-
                   {isFavorited && isOption ? (
-                    <button className="flex button bg-gray-200 3xl:text-2xl">
-                      Item Favorited
+                    <button className="flex button bg-gray-200 3xl:text-xl">
+                      {error ? "Select Option" : "Item Favorited"}
                     </button>
-                  ) :   (
+                  ) : (
                     <button
                       onClick={(event) => handleFavoriteClick(event, product)}
-                      className="flex button 3xl:text-2xl text-white"
+                      className="flex button 3xl:text-xl text-white"
                     >
-                      { isFavorited ? "Update Favorite" : "Add Favorite"}
+                      {isFavorited ? "Update Favorite" : "Add Favorite"}
                     </button>
-             
-
                   )}
 
                   <button
@@ -240,13 +244,13 @@ function Detail() {
           </div>
         </div>
 
-        <div className="flex w-full border-t p-4 text-xl">
+        <div className="flex w-full border-t p-4 text-xl 3xl:text-3xl">
           <h2 className="">Similar Items</h2>
         </div>
 
         <div className="flex w-full px-2 ">
           {similarProducts?.map((item) => (
-            <div key={item.id + item.option} className="grid px-2 pb-4">
+            <div key={item.id + item.option} className="grid px-2 pb-4 ">
               <div
                 onClick={() => {
                   setOption(item.option), setSelectedImage([item.image, 0]);
@@ -271,11 +275,11 @@ function Detail() {
               <div
                 className={
                   item.id === product.id && item.option === option
-                    ? " text-md 3xl:text-lg text-gray-700"
-                    : " text-md 3xl:text-lg text-gray-500"
+                    ? " text-md 3xl:text-lg text-gray-700 min-w-52"
+                    : " text-md 3xl:text-lg text-gray-500 min-w-52"
                 }
               >
-                {item.title + " (" + item.option + ") "}
+                {item.title}
               </div>
             </div>
           ))}
@@ -286,16 +290,14 @@ function Detail() {
       <div className="hidden lg:grid w-full bg-gray-100 shadow rounded-md max-w-[20vw]">
         {cart.length > 0 ? (
           <div>
-            <div className="flex items-center p-2 font-semibold text-gray-500 text-lg 3xl:text-2xl">
+            <Link
+              href="/cart"
+              className="flex items-center px-6 py-2 m-2 text-white text-md 3xl:text-xl border-2 bg-amber-500 rounded-full w-fit"
+            >
               <HiShoppingCart />
-              <h4>Cart</h4>
-            </div>
-
-            <Link className="" href={`/cart`}>
-              <button className="button m-2 3xl:text-xl flex items-center text-white">
-                View Cart <HiArrowRight className="h-6 w-6 px-1" />
-              </button>
+              <h4>View Cart</h4>
             </Link>
+
             {cart.map((item) => (
               <div
                 key={item.id + item.option}
@@ -307,8 +309,8 @@ function Detail() {
                   }}
                   className={
                     item.id === product.id && item.option === option
-                      ? "relative aspect-square hover:opacity-95 ring-2 ring-amber-500 rounded-md"
-                      : "relative aspect-square hover:opacity-95  "
+                      ? "relative aspect-square hover:opacity-95 ring-2 ring-amber-500 rounded-md active:scale-95 transition duration-150 ease-out"
+                      : "relative aspect-square hover:opacity-95  active:scale-95 transition duration-150 ease-out"
                   }
                 >
                   <Link href={`/detail/${item.id}`}>
@@ -317,7 +319,7 @@ function Detail() {
                       alt="fav-image"
                       fill
                       style={{ objectFit: "cover" }}
-                      className="rounded-md animate-fade active:scale-95 transition duration-150 ease-out"
+                      className="rounded-md animate-fade "
                     />
                   </Link>
                 </div>

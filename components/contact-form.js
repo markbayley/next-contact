@@ -1,4 +1,5 @@
 import { useForm, ValidationError } from "@formspree/react";
+import Link from "next/link";
 import {
   FaInstagram,
   FaSquareFacebook,
@@ -9,8 +10,16 @@ export default function ContactForm() {
   const [state, handleSubmit] = useForm(process.env.NEXT_PUBLIC_FORM);
 
   if (state.succeeded) {
-    return <p>Message sent!</p>;
+    return (
+      <div className="flex flex-col w-full min-h-screen items-center justify-center">
+        <p> We received your message! </p>
+        <Link href="/">
+          <div className="button mt-4 text-white">Continue Shopping</div>
+        </Link>
+      </div>
+    );
   }
+
 
   return (
     <div className="w-full flex justify-center pt-16">

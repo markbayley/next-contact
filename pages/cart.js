@@ -48,21 +48,21 @@ const Cart = () => {
           </h2>
           <h2 className="flex gap-2">
             <Link href="/cart">
-              <div className="flex items-center button text-white">
+              <div className="flex items-center button rounded-full text-white">
                 Checkout <HiArrowRight className="h-4 w-4 ml-1" />
               </div>
             </Link>
           </h2>
         </div>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 ">
           {cart.map((product) => (
             <div
               key={product.id + product.option}
-              className="w-full md:border-2 bg-gray-100 shadow-sm rounded-md grid md:grid-cols-2 p-1 "
+              className="w-full md:border-2 bg-gray-100 shadow-sm rounded-md grid md:grid-cols-2 p-1"
             >
               {/* leftSide */}
               <div className="">
-                <div className="relative w-full h-56">
+                <div className="relative w-full h-40">
                   <Link href={`/detail/${product.id}`}>
                     <Image
                       src={product.image}
@@ -86,18 +86,18 @@ const Cart = () => {
               <div className="flex flex-col justify-between p-2  ">
                 <div className="styelCol md:styleRow">
                   <h2 className="font-semibold">
-                    {product.title + " (" + product?.option + ") "}
+                    {product.title}{" "}<span className="whitespace-nowrap">{" (" + product.option + ") "}</span>
                   </h2>
                 
                 </div>
 
-                <h3 className="py-2">
+                {/* <h3 className="py-2">
                   {product.description.substring(0, 70)}...
-                </h3>
+                </h3> */}
 
                 <div className="styleRow py-2">
                   {" "}
-                  <h5 className="pt-2 md:pb-2 text-md">${product.price}</h5>
+                  <h5 className="text-md">${product.price}</h5>
                   <div className="flex items-center space-x-2 ">
                     <button
                       onClick={() =>
@@ -143,7 +143,7 @@ const Cart = () => {
             </div>
           ))}
 
-          <div className="grid md:grid-cols-3 bg-white rounded-md items-center p-4">
+          <div className="grid grid-cols-3 bg-white rounded-md items-center p-4">
             <div className=" font-semibold">
               {" "}
               <h2>Cart Total</h2>
@@ -157,14 +157,15 @@ const Cart = () => {
                   </li>
                 ))}
               </ul> */}
+                <h3 className="md:pl-3 text-center">${getTotalPrice().toFixed(2)}</h3>
             </div>
 
-            <div className="flex items-center w-full justify-between font-semibold  ">
-              <h3 className="md:pl-3">Total: ${getTotalPrice().toFixed(2)}</h3>
+            <div className="flex items-center w-full justify-end font-semibold  ">
+            
 
               <Link href="/cart">
                 <div className="flex items-center button text-white">
-                  Buy All <HiArrowRight className="h-4 w-4 " />
+                  Buy All 
                 </div>
               </Link>
             </div>

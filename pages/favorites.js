@@ -6,8 +6,14 @@ import { HiArrowRight, HiHeart, HiOutlineX } from "react-icons/hi";
 import { useRouter } from "next/router";
 
 const Favorites = () => {
-  const { cart, removeFromFavorites, favorites, addToCart, setOption, transferToCart } =
-    useCart();
+  const {
+    cart,
+    removeFromFavorites,
+    favorites,
+    addToCart,
+    setOption,
+    transferToCart,
+  } = useCart();
 
   const router = useRouter();
 
@@ -41,7 +47,7 @@ const Favorites = () => {
           </h2>
           <h2 className="flex gap-2">
             <Link href="/cart">
-              <div className="flex items-center button text-white">
+              <div className="flex items-center button rounded-full text-white">
                 View Cart <HiArrowRight className="h-4 w-4 ml-1" />
               </div>
             </Link>
@@ -57,7 +63,7 @@ const Favorites = () => {
             return (
               <div
                 key={product.id + product.option}
-                className="w-full md:border-2 bg-gray-100 shadow-sm rounded-md grid md:grid-cols-3 p-1"
+                className="w-full md:border-2 bg-gray-100 shadow-sm rounded-md grid md:grid-cols-2 p-1"
                 onClick={() => setOption(product.option)}
               >
                 <div className="relative w-full h-40">
@@ -79,53 +85,53 @@ const Favorites = () => {
                 </div>
                 <div className="flex flex-col justify-between p-2">
                   <h2 className="font-semibold">
-                    {product.title + " (" + (product.option || "No Option") + ") "}
+                    {product.title}{" "}
+                    <span className="whitespace-nowrap">
+                      {" (" + product.option + ") "}
+                    </span>
                   </h2>
-                  <h3>{product?.description?.substring(0, 70)}...</h3>
-               
-                  <div className="flex w-full justify-end md:justify-start items-center">
-                  <h5 className="pt-2 md:pb-2 text-md">${product.price}</h5>
-                {/* <HiHeart className="h-7 w-7 z-20 text-red-500" /> */}
-              </div>
-                </div>
-                <div className="flex items-center md:flex-col w-full justify-between md:items-end p-2">
-                <span className="text-red-600 md:text-right">
-                    {product.category === "Health & Beauty"
-                      ? "Save 10%"
-                      : product.category === "Home Decor"
-                      ? "Save 15%"
-                      : product.category === "Skin Care"
-                      ? "Save 19%"
-                      : "Save 24%"}
-                     <div className="font-semibold text-md 4xl:text-lg text-gray-500">
-                    { product.category}
+                  {/* <h3>{product?.description?.substring(0, 70)}...</h3> */}
+                  <div className="flex w-full justify-end md:justify-start items-center py-2">
+                    <h5 className="text-md">${product.price}</h5>
                   </div>
-                  </span>
-                  <div className="">
-                
-                    {product.option && product.option !== "" ? (
-                      isAdded ? (
-                       
-                        <div className="button bg-gray-200 text-black">
-                          Item In Cart
-                        </div>
+
+                  <div className="flex  w-full justify-between items-end py-2">
+                    <span className="text-red-600  font-semibold">
+                      {product.category === "Health & Beauty"
+                        ? "Save 10%"
+                        : product.category === "Home Decor"
+                        ? "Save 15%"
+                        : product.category === "Skin Care"
+                        ? "Save 19%"
+                        : "Save 24%"}
+                      <div className="font-semibold text-md 4xl:text-lg text-gray-500">
+                        {product.category}
+                      </div>
+                    </span>
+                    <div className="">
+                      {product.option && product.option !== "" ? (
+                        isAdded ? (
+                          <div className="button bg-gray-200 text-black">
+                            Item In Cart
+                          </div>
+                        ) : (
+                          // <Link href="/cart">
+                          <div
+                            onClick={() => transferToCart(product)}
+                            className="button text-white"
+                          >
+                            Add To Cart
+                          </div>
+                          // </Link>
+                        )
                       ) : (
-                        // <Link href="/cart">
-                        <div
-                          onClick={() => transferToCart(product)}
-                          className="button text-white"
-                        >
-                          Add To Cart
-                        </div>
-                        // </Link>
-                      )
-                    ) : (
-                      <Link href={`/detail/${product.id}`}>
-                        <div className="button text-amber-500 font-medium bg-white ring-2 ring-amber-500">
-                          Select Option
-                        </div>
-                      </Link>
-                    )}
+                        <Link href={`/detail/${product.id}`}>
+                          <div className="button text-amber-500 font-medium bg-white ring-2 ring-amber-500">
+                            Select Option
+                          </div>
+                        </Link>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
